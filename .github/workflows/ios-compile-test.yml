@@ -21,34 +21,38 @@ jobs:
         run: |
           sed -i '' '/Entitlements.plist/d' iNetHack.xcodeproj/project.pbxproj
 
-      - name: "Step 1: Generate NetHack Game Data (Native Mac Pass)"
+      - name: "Step 1: Compile Asset Generation Utilities (Native Mac Pass)"
         run: |
+          # Instead of compiling 'alltargets' under the Mac SDK (which chokes on iOS UI files),
+          # we target the specific build utilities. This generates 'tile.c' and 'nhdat' natively.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
-            -alltargets \
+            -target "tilemap" \
             -configuration Debug \
             -sdk macosx \
-            ONLY_ACTIVE_ARCH=YES \
             CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO || echo "Proceeding with generated assets..."
+            CODE_SIGNING_REQUIRED=NO || echo "Continuing..."
 
       - name: "Step 2: Route Auto-Generated Source Files"
         run: |
-          # 1. Clear the data and library directory blockers
+          # 1. Provide directory asset tree structures to clear folder blockers
           mkdir -p nethack/dat
           touch nethack/dat/nhdat
           mkdir -p lib
           touch lib/.gitkeep
 
-          # 2. Locate the dynamically built tile.c from the Mac tool cache
-          # and copy it directly to the source directory where the iOS build expects it.
-          GENERATED_TILE_C=$(find build/ -name "tile.c" | head -n 1)
+          # 2. Search for the real generated tile.c file filled with the glyph2tile functions
+          GENERATED_TILE_C=$(find build/ -name "tile.c" -type f -size +1k | head -n 1)
           if [ -n "$GENERATED_TILE_C" ]; then
-            echo "Found generated file at: $GENERATED_TILE_C"
+            echo "Found valid tile.c at: $GENERATED_TILE_C"
             cp "$GENERATED_TILE_C" nethack/src/tile.c
           else
-            echo "Warning: tile.c not found in build cache. Creating a placeholder."
-            touch nethack/src/tile.c
+            echo "Real tile.c not found in build directory. Attempting to trigger tilemap binary directly..."
+            # Fallback: If xcodebuild hid the output file, locate the compiled utility and run it manually
+            TILEMAP_BIN=$(find build/ -name "tilemap" -type f -executable | head -n 1)
+            if [ -n "$TILEMAP_BIN" ]; then
+              cd nethack/src && ../../$TILEMAP_BIN && cd ../..
+            fi
           fi
 
       - name: "Step 3: Compile App Environment (iOS Simulator Pass)"
