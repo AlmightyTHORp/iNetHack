@@ -21,19 +21,25 @@ jobs:
         run: |
           sed -i '' '/Entitlements.plist/d' iNetHack.xcodeproj/project.pbxproj
 
-      - name: "Step 1: Initialize Multi-Layout Resource Placeholders"
+      - name: "Step 1: Mirror Directory Tree Structure"
         run: |
-          # 1. Initialize root-level directory fallbacks
+          # 1. Create the parent folder that Xcode's hardcoded paths are looking for
+          mkdir -p nethack
+
+          # 2. Symlink the root source code and header directories into the nethack folder
+          # This maps root files like 'src/tile.c' to 'nethack/src/tile.c' dynamically.
+          ln -s ../src nethack/src
+          ln -s ../include nethack/include
+          ln -s ../dat nethack/dat
+          ln -s ../lib nethack/lib
+
+          # 3. Ensure target directories and dummy files exist to bypass bundle copier validations
           mkdir -p dat
           touch dat/nhdat
           mkdir -p lib
           touch lib/.gitkeep
-
-          # 2. Initialize nested 'nethack' subfolder structures to satisfy Xcode's hardcoded copy phases
           mkdir -p nethack/dat
           touch nethack/dat/nhdat
-          mkdir -p nethack/lib
-          touch nethack/lib/.gitkeep
 
       - name: "Step 2: Compile App Environment (iOS Simulator Pass)"
         run: |
