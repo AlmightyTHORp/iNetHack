@@ -21,21 +21,24 @@ jobs:
         run: |
           sed -i '' '/Entitlements.plist/d' iNetHack.xcodeproj/project.pbxproj
 
-      - name: "Step 1: Initialize Root Resource Placeholders"
+      - name: "Step 1: Initialize Multi-Layout Resource Placeholders"
         run: |
-          # 1. Create directory asset trees at the absolute repository root level
+          # 1. Initialize root-level directory fallbacks
           mkdir -p dat
+          touch dat/nhdat
           mkdir -p lib
           touch lib/.gitkeep
 
-          # 2. Inject dummy markers directly to bypass bundle copier validation errors
-          touch dat/nhdat
+          # 2. Initialize nested 'nethack' subfolder structures to satisfy Xcode's hardcoded copy phases
+          mkdir -p nethack/dat
+          touch nethack/dat/nhdat
+          mkdir -p nethack/lib
+          touch nethack/lib/.gitkeep
 
       - name: "Step 2: Compile App Environment (iOS Simulator Pass)"
         run: |
           RUNNER_ARCH=$(uname -m)
           
-          # We execute the clean simulation target against the verified workspace root assets.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -target "iNetHack2" \
