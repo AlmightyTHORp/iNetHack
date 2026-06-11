@@ -23,13 +23,13 @@ jobs:
           # so Xcode doesn't throw a validation warning/error during headless builds.
           sed -i '' '/Entitlements.plist/d' iNetHack.xcodeproj/project.pbxproj
 
-      - name: Compile Full NetHack Target Dependency Chain
+      - name: Compile Complete Project Environment
         run: |
-          # We explicitly pass '-configuration Debug' and SDK parameters to force
-          # xcodebuild out of physical 'Distribution-iphoneos' mode.
+          # Dropping the isolated target flag and using the global 'alltargets' action 
+          # forces Xcode to process the background tools that generate 'nhdat' first.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
-            -target "iNetHack2" \
+            -alltargets \
             -configuration Debug \
             -sdk iphonesimulator \
             -destination "platform=iOS Simulator,name=iPhone 15" \
