@@ -24,13 +24,19 @@ jobs:
 
       - name: "Step 1: Initialize Source and Sandbox Mock Assets"
         run: |
-          # 1. Pre-build the source directories and files that Xcode scans
+          # 1. Clear absolute root-level copy folder constraints
+          mkdir -p dat
+          echo "mock data" > dat/nhdat
+          mkdir -p lib
+          echo "mock library" > lib/placeholder.txt
+
+          # 2. Clear nested subfolder copy constraints
           mkdir -p nethack/dat
           echo "mock data" > nethack/dat/nhdat
           mkdir -p nethack/lib
           echo "mock library" > nethack/lib/placeholder.txt
 
-          # 2. Pre-build the exact DerivedData sandboxed directory structures to clear copier errors
+          # 3. Pre-build the exact DerivedData sandboxed directory structures to clear copier errors
           mkdir -p build_output/Build/Products/Debug-iphonesimulator/iNetHack2.app/lib
           echo "mock data" > build_output/Build/Products/Debug-iphonesimulator/iNetHack2.app/nhdat
           echo "mock library" > build_output/Build/Products/Debug-iphonesimulator/iNetHack2.app/lib/placeholder.txt
