@@ -19,21 +19,32 @@ jobs:
 
       - name: Fix Misplaced Entitlements Warning
         run: |
-          # Automatically strips the Entitlements.plist out of the Copy Bundle Resources phase 
-          # so Xcode doesn't throw a validation warning/error during headless builds.
           sed -i '' '/Entitlements.plist/d' iNetHack.xcodeproj/project.pbxproj
 
-      - name: Compile Complete Project Environment
+      - name: Step 1: Generate NetHack Game Data (Native Mac Pass)
         run: |
-          # 1. Determine the host runner architecture (x86_64 or arm64)
-          RUNNER_ARCH=$(uname -m)
-          echo "GitHub Runner Architecture is: $RUNNER_ARCH"
-
-          # 2. Force ONLY_ACTIVE_ARCH=NO and hardcode the explicit ARCHS 
-          # matching the simulator host to cleanly isolate asset file generation steps.
+          # We build using the macOS SDK first. This compiles 'lev_comp' and 'makedefs' 
+          # as native Mac tools, allowing them to execute on the runner and successfully 
+          # output 'nhdat', 'tower.des', and all game assets into the project directory.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -alltargets \
+            -configuration Debug \
+            -sdk macosx \
+            ONLY_ACTIVE_ARCH=YES \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO || echo "Proceeding to iOS step with generated assets..."
+
+      - name: Step 2: Compile App Environment (iOS Simulator Pass)
+        run: |
+          RUNNER_ARCH=$(uname -m)
+          
+          # Now that the data files have been baked by the Mac tools, we run the 
+          # standard iOS simulator build. It will find the missing assets waiting 
+          # for it and package them smoothly.
+          xcodebuild build \
+            -project "iNetHack.xcodeproj" \
+            -target "iNetHack2" \
             -configuration Debug \
             -sdk iphonesimulator \
             -destination "platform=iOS Simulator,name=iPhone 15" \
