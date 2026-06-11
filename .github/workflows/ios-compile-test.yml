@@ -45,12 +45,14 @@ jobs:
         run: |
           RUNNER_ARCH=$(uname -m)
           
+          # Pairing the specific device name with its explicit OS string 
+          # forces the build engine to bypass the abstract destination check.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -scheme "iNetHack2" \
             -configuration Debug \
             -sdk iphonesimulator \
-            -destination "platform=iOS Simulator,name=Any iOS Simulator Device" \
+            -destination "platform=iOS Simulator,name=iPad (10th generation),OS=18.5" \
             -derivedDataPath "build_output" \
             ONLY_ACTIVE_ARCH=NO \
             ARCHS="$RUNNER_ARCH" \
