@@ -22,28 +22,31 @@ jobs:
           sed -i '' '/Entitlements.pbxproj/d' iNetHack.xcodeproj/project.pbxproj || true
           sed -i '' '/Entitlements.plist/d' iNetHack.xcodeproj/project.pbxproj || true
 
-      - name: "Step 1: Initialize Folder Asset Shells"
+      - name: "Step 1: Provision Multi-Layout Asset Folders"
         run: |
-          # Create data structures to handle standard resource copy stages smoothly
+          # Initialize directory trees to satisfy local file system scans
           mkdir -p dat
+          touch dat/nhdat
           mkdir -p lib
           touch lib/.gitkeep
           mkdir -p nethack/dat
+          touch nethack/dat/nhdat
           mkdir -p nethack/lib
           touch nethack/lib/.gitkeep
 
-      - name: "Step 2: Compile Full Scheme (iOS Simulator Pass)"
+      - name: "Step 2: Compile App Scheme and Inject Sandbox Assets"
         run: |
           RUNNER_ARCH=$(uname -m)
-          
-          # Changing the destination string to target 'iPad (10th generation)' 
-          # aligns with the simulator configurations installed on the host runner.
+
+          # 1. Force xcodebuild to build the scheme using a localized DerivedData path.
+          # This pulls Xcode out of the global hidden folder path and locks it into our repo directory tree!
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -scheme "iNetHack2" \
             -configuration Debug \
             -sdk iphonesimulator \
             -destination "platform=iOS Simulator,name=iPad (10th generation)" \
+            -derivedDataPath "build_output" \
             ONLY_ACTIVE_ARCH=NO \
             ARCHS="$RUNNER_ARCH" \
             CODE_SIGNING_ALLOWED=NO \
