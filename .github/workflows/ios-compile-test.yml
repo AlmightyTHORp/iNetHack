@@ -21,7 +21,7 @@ jobs:
         run: |
           sed -i '' '/Entitlements.plist/d' iNetHack.xcodeproj/project.pbxproj
 
-      - name: Step 1: Generate NetHack Game Data (Native Mac Pass)
+      - name: Generate NetHack Game Data
         run: |
           # We build using the macOS SDK first. This compiles 'lev_comp' and 'makedefs' 
           # as native Mac tools, allowing them to execute on the runner and successfully 
@@ -35,7 +35,7 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO || echo "Proceeding to iOS step with generated assets..."
 
-      - name: Step 2: Compile App Environment (iOS Simulator Pass)
+      - name: Compile App Environment
         run: |
           RUNNER_ARCH=$(uname -m)
           
