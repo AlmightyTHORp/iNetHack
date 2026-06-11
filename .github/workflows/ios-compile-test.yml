@@ -36,15 +36,14 @@ jobs:
         run: |
           RUNNER_ARCH=$(uname -m)
           
-          # Dropping '-target' and using '-scheme' forces Xcode to evaluate 
-          # the asset generation utilities first, outputting a real populated tile.c 
-          # before compiling the front-end code.
+          # Changing the destination string to target 'iPad (10th generation)' 
+          # aligns with the simulator configurations installed on the host runner.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -scheme "iNetHack2" \
             -configuration Debug \
             -sdk iphonesimulator \
-            -destination "platform=iOS Simulator,name=iPhone 15" \
+            -destination "platform=iOS Simulator,name=iPad (10th generation)" \
             ONLY_ACTIVE_ARCH=NO \
             ARCHS="$RUNNER_ARCH" \
             CODE_SIGNING_ALLOWED=NO \
