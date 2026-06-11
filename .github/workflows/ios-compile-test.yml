@@ -25,12 +25,13 @@ jobs:
 
       - name: Compile Full NetHack Target Dependency Chain
         run: |
-          # Building with the default 'clean build' clears out the pre-compiled game data files.
-          # We change 'clean build' to a standard 'build' action to ensure xcodebuild natively
-          # invokes the nested target dependencies to generate 'nhdat' sequentially.
+          # We explicitly pass '-configuration Debug' and SDK parameters to force
+          # xcodebuild out of physical 'Distribution-iphoneos' mode.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -target "iNetHack2" \
+            -configuration Debug \
+            -sdk iphonesimulator \
             -destination "platform=iOS Simulator,name=iPhone 15" \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO
