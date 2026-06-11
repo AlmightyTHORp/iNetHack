@@ -25,13 +25,19 @@ jobs:
 
       - name: Compile Complete Project Environment
         run: |
-          # Dropping the isolated target flag and using the global 'alltargets' action 
-          # forces Xcode to process the background tools that generate 'nhdat' first.
+          # 1. Determine the host runner architecture (x86_64 or arm64)
+          RUNNER_ARCH=$(uname -m)
+          echo "GitHub Runner Architecture is: $RUNNER_ARCH"
+
+          # 2. Force ONLY_ACTIVE_ARCH=NO and hardcode the explicit ARCHS 
+          # matching the simulator host to cleanly isolate asset file generation steps.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -alltargets \
             -configuration Debug \
             -sdk iphonesimulator \
             -destination "platform=iOS Simulator,name=iPhone 15" \
+            ONLY_ACTIVE_ARCH=NO \
+            ARCHS="$RUNNER_ARCH" \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO
