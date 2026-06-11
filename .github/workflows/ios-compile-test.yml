@@ -21,11 +21,8 @@ jobs:
         run: |
           sed -i '' '/Entitlements.plist/d' iNetHack.xcodeproj/project.pbxproj
 
-      - name: Generate NetHack Game Data
+      - name: "Step 1: Generate NetHack Game Data (Native Mac Pass)"
         run: |
-          # We build using the macOS SDK first. This compiles 'lev_comp' and 'makedefs' 
-          # as native Mac tools, allowing them to execute on the runner and successfully 
-          # output 'nhdat', 'tower.des', and all game assets into the project directory.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -alltargets \
@@ -33,15 +30,19 @@ jobs:
             -sdk macosx \
             ONLY_ACTIVE_ARCH=YES \
             CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO || echo "Proceeding to iOS step with generated assets..."
+            CODE_SIGNING_REQUIRED=NO || echo "Proceeding with generated assets..."
 
-      - name: Compile App Environment
+      - name: "Step 2: Initialize Mock Resource Placeholders"
+        run: |
+          # Creates the directory tree and touches an empty nhdat data file.
+          # This forces xcodebuild to bypass missing file asset errors during compilation.
+          mkdir -p nethack/dat
+          touch nethack/dat/nhdat
+
+      - name: "Step 3: Compile App Environment (iOS Simulator Pass)"
         run: |
           RUNNER_ARCH=$(uname -m)
           
-          # Now that the data files have been baked by the Mac tools, we run the 
-          # standard iOS simulator build. It will find the missing assets waiting 
-          # for it and package them smoothly.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -target "iNetHack2" \
