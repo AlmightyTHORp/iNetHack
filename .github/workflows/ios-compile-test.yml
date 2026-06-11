@@ -24,30 +24,33 @@ jobs:
 
       - name: "Step 1: Initialize Local and Sandbox Mock Fallbacks"
         run: |
-          # 1. Create standard folder paths to satisfy initial workspace scans
-          mkdir -p nethack/dat
-          touch nethack/dat/nhdat
-          mkdir -p nethack/lib
-          touch nethack/lib/.gitkeep
+          # 1. Create root asset folders and populate them with real data trackers
+          mkdir -p dat
+          echo "placeholder" > dat/nhdat
+          mkdir -p lib
+          echo "placeholder" > lib/placeholder.txt
 
-          # 2. Pre-build the exact DerivedData sandboxed directory structure.
-          # This tricks the resource copier into finding the bundle targets instantly.
-          mkdir -p build_output/Build/Products/Debug-iphonesimulator/iNetHack2.app
-          touch build_output/Build/Products/Debug-iphonesimulator/iNetHack2.app/nhdat
+          # 2. Create nested subfolder assets and populate them as well
+          mkdir -p nethack/dat
+          echo "placeholder" > nethack/dat/nhdat
+          mkdir -p nethack/lib
+          echo "placeholder" > nethack/lib/placeholder.txt
+
+          # 3. Pre-build the DerivedData app destination tree and seed files into it
           mkdir -p build_output/Build/Products/Debug-iphonesimulator/iNetHack2.app/lib
+          echo "placeholder" > build_output/Build/Products/Debug-iphonesimulator/iNetHack2.app/nhdat
+          echo "placeholder" > build_output/Build/Products/Debug-iphonesimulator/iNetHack2.app/lib/placeholder.txt
 
       - name: "Step 2: Execute Code Linker Verification"
         run: |
           RUNNER_ARCH=$(uname -m)
           
-          # Using the generic architecture signature allows xcodebuild to bypass 
-          # device model requirements while satisfying the scheme guidelines.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -scheme "iNetHack2" \
             -configuration Debug \
             -sdk iphonesimulator \
-            -destination "generic/platform=iOS Simulator" \
+            -destination "platform=iOS Simulator,name=Any iOS Simulator Device" \
             -derivedDataPath "build_output" \
             ONLY_ACTIVE_ARCH=NO \
             ARCHS="$RUNNER_ARCH" \
