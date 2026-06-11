@@ -34,10 +34,13 @@ jobs:
 
       - name: "Step 2: Initialize Mock Resource Placeholders"
         run: |
-          # Creates the directory tree and touches an empty nhdat data file.
-          # This forces xcodebuild to bypass missing file asset errors during compilation.
+          # 1. Clear the previous data directory blocker
           mkdir -p nethack/dat
           touch nethack/dat/nhdat
+
+          # 2. Fix the missing 'lib' folder asset blocker
+          mkdir -p lib
+          touch lib/.gitkeep
 
       - name: "Step 3: Compile App Environment (iOS Simulator Pass)"
         run: |
