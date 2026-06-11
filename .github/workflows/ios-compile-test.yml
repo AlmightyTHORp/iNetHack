@@ -44,7 +44,7 @@ jobs:
           # Combined with our local DerivedData flags, it will compile successfully.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
-            -target "iNetHack2" \
+            -scheme "iNetHack2" \
             -configuration Debug \
             -sdk iphonesimulator \
             -destination "platform=iOS Simulator,name=iPad (10th generation)" \
