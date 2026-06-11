@@ -22,23 +22,24 @@ jobs:
           sed -i '' '/Entitlements.pbxproj/d' iNetHack.xcodeproj/project.pbxproj || true
           sed -i '' '/Entitlements.plist/d' iNetHack.xcodeproj/project.pbxproj || true
 
-      - name: "Step 1: Initialize Nested Target Asset Structure"
+      - name: "Step 1: Initialize Root and Nested Target Asset Structure"
         run: |
-          # 1. Create the specific data folder paths that Xcode is querying
+          # 1. Clear root-level copy folder constraints
+          mkdir -p dat
+          touch dat/nhdat
+          mkdir -p lib
+          touch lib/.gitkeep
+
+          # 2. Clear nested subfolder copy constraints
           mkdir -p nethack/dat
+          touch nethack/dat/nhdat
           mkdir -p nethack/lib
           touch nethack/lib/.gitkeep
-
-          # 2. Inject the mock placeholder file directly where Xcode's 
-          # hardcoded CpResource command expects to pull it from
-          touch nethack/dat/nhdat
 
       - name: "Step 2: Compile App Environment (iOS Simulator Pass)"
         run: |
           RUNNER_ARCH=$(uname -m)
           
-          # This compiles the standalone app target. Because tile.c is safely inside 
-          # the repo at nethack/src/ and nhdat is provisioned above, it passes.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -target "iNetHack2" \
