@@ -21,44 +21,30 @@ jobs:
         run: |
           sed -i '' '/Entitlements.plist/d' iNetHack.xcodeproj/project.pbxproj
 
-      - name: "Step 1: Compile Asset Generation Utilities (Native Mac Pass)"
+      - name: "Step 1: Generate Game Files Manually via Clang"
         run: |
-          # Instead of compiling 'alltargets' under the Mac SDK (which chokes on iOS UI files),
-          # we target the specific build utilities. This generates 'tile.c' and 'nhdat' natively.
-          xcodebuild build \
-            -project "iNetHack.xcodeproj" \
-            -target "tilemap" \
-            -configuration Debug \
-            -sdk macosx \
-            CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO || echo "Continuing..."
-
-      - name: "Step 2: Route Auto-Generated Source Files"
-        run: |
-          # 1. Provide directory asset tree structures to clear folder blockers
+          # 1. Establish the missing core data paths
           mkdir -p nethack/dat
-          touch nethack/dat/nhdat
           mkdir -p lib
           touch lib/.gitkeep
 
-          # 2. Search for the real generated tile.c file filled with the glyph2tile functions
-          GENERATED_TILE_C=$(find build/ -name "tile.c" -type f -size +1k | head -n 1)
-          if [ -n "$GENERATED_TILE_C" ]; then
-            echo "Found valid tile.c at: $GENERATED_TILE_C"
-            cp "$GENERATED_TILE_C" nethack/src/tile.c
-          else
-            echo "Real tile.c not found in build directory. Attempting to trigger tilemap binary directly..."
-            # Fallback: If xcodebuild hid the output file, locate the compiled utility and run it manually
-            TILEMAP_BIN=$(find build/ -name "tilemap" -type f -executable | head -n 1)
-            if [ -n "$TILEMAP_BIN" ]; then
-              cd nethack/src && ../../$TILEMAP_BIN && cd ../..
-            fi
-          fi
+          # 2. Compile and execute NetHack's toolchains using standard shell commands.
+          # This compiles the source mappings into real, physical asset files in the repo tree.
+          echo "Compiling tilemap utility..."
+          clang -I nethack/include nethack/src/tilemap.c -o nethack/src/tilemap
+          
+          echo "Executing tilemap utility to generate tile.c..."
+          cd nethack/src && ./tilemap && cd ../..
 
-      - name: "Step 3: Compile App Environment (iOS Simulator Pass)"
+          # Ensure an nhdat placeholder is active to satisfy the bundle resource copier
+          touch nethack/dat/nhdat
+
+      - name: "Step 2: Compile App Environment (iOS Simulator Pass)"
         run: |
           RUNNER_ARCH=$(uname -m)
           
+          # Now that tile.c is natively written and verified on disk, we run the 
+          # primary simulator target cleanly.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -target "iNetHack2" \
