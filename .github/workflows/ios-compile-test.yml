@@ -26,7 +26,7 @@ jobs:
       - name: Compile App for Simulator
         run: |
           xcodebuild clean build \
-            -project "iNetHack/iNetHack.xcodeproj" \
+            -project "iNetHack.xcodeproj" \
             -scheme "iNetHack" \
             -destination "platform=iOS Simulator,name=iPhone 15" \
             CODE_SIGNING_ALLOWED=NO \
