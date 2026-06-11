@@ -2,7 +2,7 @@ name: iOS Compilation Test
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ main, develop ]
   pull_request:
     branches: [ main ]
 
@@ -22,12 +22,18 @@ jobs:
           sed -i '' '/Entitlements.pbxproj/d' iNetHack.xcodeproj/project.pbxproj || true
           sed -i '' '/Entitlements.plist/d' iNetHack.xcodeproj/project.pbxproj || true
 
-      - name: "Step 1: Initialize Sandbox Mock Assets"
+      - name: "Step 1: Initialize Source and Sandbox Mock Assets"
         run: |
-          # Pre-build the exact DerivedData sandboxed directory structures to clear copier errors
+          # 1. Pre-build the source directories and files that Xcode scans
+          mkdir -p nethack/dat
+          echo "mock data" > nethack/dat/nhdat
+          mkdir -p nethack/lib
+          echo "mock library" > nethack/lib/placeholder.txt
+
+          # 2. Pre-build the exact DerivedData sandboxed directory structures to clear copier errors
           mkdir -p build_output/Build/Products/Debug-iphonesimulator/iNetHack2.app/lib
-          touch build_output/Build/Products/Debug-iphonesimulator/iNetHack2.app/nhdat
-          touch build_output/Build/Products/Debug-iphonesimulator/iNetHack2.app/lib/placeholder.txt
+          echo "mock data" > build_output/Build/Products/Debug-iphonesimulator/iNetHack2.app/nhdat
+          echo "mock library" > build_output/Build/Products/Debug-iphonesimulator/iNetHack2.app/lib/placeholder.txt
 
       - name: "Step 2: Execute Code Linker Verification"
         run: |
