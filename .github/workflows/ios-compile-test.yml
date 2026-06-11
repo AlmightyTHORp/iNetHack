@@ -46,6 +46,9 @@ jobs:
         run: |
           RUNNER_ARCH=$(uname -m)
           
+          # We add flags to disable modern compiler scanning optimizations.
+          # This forces Xcode 16+ to safely bypass dependency scanning bottlenecks 
+          # on legacy C macros used throughout NetHack's engine source code.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -target "iNetHack2" \
@@ -55,4 +58,6 @@ jobs:
             ONLY_ACTIVE_ARCH=NO \
             ARCHS="$RUNNER_ARCH" \
             CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO
+            CODE_SIGNING_REQUIRED=NO \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            XCODE_BUILD_SYSTEM_ENABLE_EAGER_LINKING=NO
