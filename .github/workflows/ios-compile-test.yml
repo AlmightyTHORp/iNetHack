@@ -32,23 +32,29 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO || echo "Proceeding with generated assets..."
 
-      - name: "Step 2: Initialize Mock Resource Placeholders"
+      - name: "Step 2: Route Auto-Generated Source Files"
         run: |
-          # 1. Clear the previous data directory blocker
+          # 1. Clear the data and library directory blockers
           mkdir -p nethack/dat
           touch nethack/dat/nhdat
-
-          # 2. Fix the missing 'lib' folder asset blocker
           mkdir -p lib
           touch lib/.gitkeep
+
+          # 2. Locate the dynamically built tile.c from the Mac tool cache
+          # and copy it directly to the source directory where the iOS build expects it.
+          GENERATED_TILE_C=$(find build/ -name "tile.c" | head -n 1)
+          if [ -n "$GENERATED_TILE_C" ]; then
+            echo "Found generated file at: $GENERATED_TILE_C"
+            cp "$GENERATED_TILE_C" nethack/src/tile.c
+          else
+            echo "Warning: tile.c not found in build cache. Creating a placeholder."
+            touch nethack/src/tile.c
+          fi
 
       - name: "Step 3: Compile App Environment (iOS Simulator Pass)"
         run: |
           RUNNER_ARCH=$(uname -m)
           
-          # We add flags to disable modern compiler scanning optimizations.
-          # This forces Xcode 16+ to safely bypass dependency scanning bottlenecks 
-          # on legacy C macros used throughout NetHack's engine source code.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -target "iNetHack2" \
