@@ -19,26 +19,32 @@ jobs:
 
       - name: Fix Misplaced Entitlements Warning
         run: |
-          sed -i '' '/Entitlements.plist/d' iNetHack.xcodeproj/project.pbxproj
+          sed -i '' '/Entitlements.pbxproj/d' iNetHack.xcodeproj/project.pbxproj || true
+          sed -i '' '/Entitlements.plist/d' iNetHack.xcodeproj/project.pbxproj || true
 
-      - name: "Step 1: Mirror Directory Tree Structure"
+      - name: "Step 1: Generate tile.c and Mirror Layout via Absolute Paths"
         run: |
-          # 1. Create the parent folder that Xcode's hardcoded paths are looking for
+          # 1. Compile NetHack's tool and manually run it to generate the missing tile.c file
+          echo "Compiling native tilemap utility..."
+          clang -I include src/tilemap.c -o src/tilemap
+          
+          echo "Executing tilemap utility to physically write src/tile.c..."
+          cd src && ./tilemap && cd ..
+
+          # 2. Build the exact physical directory structures Xcode expects
           mkdir -p nethack
-
-          # 2. Symlink the root source code and header directories into the nethack folder
-          # This maps root files like 'src/tile.c' to 'nethack/src/tile.c' dynamically.
-          ln -s ../src nethack/src
-          ln -s ../include nethack/include
-          ln -s ../dat nethack/dat
-          ln -s ../lib nethack/lib
-
-          # 3. Ensure target directories and dummy files exist to bypass bundle copier validations
           mkdir -p dat
-          touch dat/nhdat
           mkdir -p lib
           touch lib/.gitkeep
-          mkdir -p nethack/dat
+
+          # 3. Create absolute path symlinks to link root folders into the nethack/ directory
+          ln -s "$GITHUB_WORKSPACE/src" "$GITHUB_WORKSPACE/nethack/src"
+          ln -s "$GITHUB_WORKSPACE/include" "$WORKSPACE_PATH/nethack/include" || ln -s "$GITHUB_WORKSPACE/include" "$GITHUB_WORKSPACE/nethack/include"
+          ln -s "$GITHUB_WORKSPACE/dat" "$GITHUB_WORKSPACE/nethack/dat"
+          ln -s "$GITHUB_WORKSPACE/lib" "$GITHUB_WORKSPACE/nethack/lib"
+
+          # 4. Inject empty dummy placeholders to clear final resource copying blockers
+          touch dat/nhdat
           touch nethack/dat/nhdat
 
       - name: "Step 2: Compile App Environment (iOS Simulator Pass)"
