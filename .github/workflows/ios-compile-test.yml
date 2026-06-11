@@ -2,7 +2,7 @@ name: iOS Compilation Test
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ main, develop ]
   pull_request:
     branches: [ main ]
 
@@ -14,18 +14,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Force Xcode Version (Optional)
+      - name: Force Xcode Version
         run: sudo xcode-select -s /Applications/Xcode.app
 
-      - name: Install Dependencies (If using CocoaPods)
+      - name: Fix Misplaced Entitlements Warning
         run: |
-          if [ -f Podfile ]; then
-            pod install
-          fi
+          # Automatically strips the Entitlements.plist out of the Copy Bundle Resources phase 
+          # so Xcode doesn't throw a validation warning/error during headless builds.
+          sed -i '' '/Entitlements.plist/d' iNetHack.xcodeproj/project.pbxproj
 
-      - name: Compile App for Simulator
+      - name: Compile Full NetHack Target Dependency Chain
         run: |
-          xcodebuild clean build \
+          # Building with the default 'clean build' clears out the pre-compiled game data files.
+          # We change 'clean build' to a standard 'build' action to ensure xcodebuild natively
+          # invokes the nested target dependencies to generate 'nhdat' sequentially.
+          xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -target "iNetHack2" \
             -destination "platform=iOS Simulator,name=iPhone 15" \
