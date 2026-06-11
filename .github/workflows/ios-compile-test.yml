@@ -22,28 +22,26 @@ jobs:
           sed -i '' '/Entitlements.pbxproj/d' iNetHack.xcodeproj/project.pbxproj || true
           sed -i '' '/Entitlements.plist/d' iNetHack.xcodeproj/project.pbxproj || true
 
-      - name: "Step 1: Generate tile.c and Mirror Layout via Absolute Paths"
+      - name: "Step 1: Bridge Absolute Multi-Layout File System Tree"
         run: |
-          # 1. Compile NetHack's tool and manually run it to generate the missing tile.c file
-          echo "Compiling native tilemap utility..."
-          clang -I include src/tilemap.c -o src/tilemap
-          
-          echo "Executing tilemap utility to physically write src/tile.c..."
-          cd src && ./tilemap && cd ..
-
-          # 2. Build the exact physical directory structures Xcode expects
-          mkdir -p nethack
+          # 1. Establish core target folders to capture bundle asset copiers smoothly
           mkdir -p dat
           mkdir -p lib
           touch lib/.gitkeep
 
-          # 3. Create absolute path symlinks to link root folders into the nethack/ directory
-          ln -s "$GITHUB_WORKSPACE/src" "$GITHUB_WORKSPACE/nethack/src"
-          ln -s "$GITHUB_WORKSPACE/include" "$WORKSPACE_PATH/nethack/include" || ln -s "$GITHUB_WORKSPACE/include" "$GITHUB_WORKSPACE/nethack/include"
-          ln -s "$GITHUB_WORKSPACE/dat" "$GITHUB_WORKSPACE/nethack/dat"
-          ln -s "$GITHUB_WORKSPACE/lib" "$GITHUB_WORKSPACE/nethack/lib"
+          # 2. Build the exact nested parent directory that Xcode's hardcoded paths mirror
+          mkdir -p nethack
 
-          # 4. Inject empty dummy placeholders to clear final resource copying blockers
+          # 3. Implement universal loop mirroring using absolute paths. 
+          # This bridges every individual workspace entity (including hidden tools, 
+          # asset layouts, and config blocks) into the subfolder structure seamlessly.
+          for entity in *; do
+            if [ "$entity" != "nethack" ]; then
+              ln -s "$GITHUB_WORKSPACE/$entity" "$GITHUB_WORKSPACE/nethack/$entity"
+            fi
+          done
+
+          # 4. Inject empty resource markers across both paths to prevent copier validation issues
           touch dat/nhdat
           touch nethack/dat/nhdat
 
@@ -51,6 +49,7 @@ jobs:
         run: |
           RUNNER_ARCH=$(uname -m)
           
+          # This triggers the standard iOS simulator build against the unified file system tree.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -target "iNetHack2" \
