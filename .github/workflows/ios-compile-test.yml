@@ -40,14 +40,14 @@ jobs:
         run: |
           RUNNER_ARCH=$(uname -m)
           
-          # Changing the destination from a specific iPad to the generic 
-          # placeholder string allows xcodebuild to match the permitted scheme limits.
+          # Using the generic architecture signature allows xcodebuild to bypass 
+          # device model requirements while satisfying the scheme guidelines.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
             -scheme "iNetHack2" \
             -configuration Debug \
             -sdk iphonesimulator \
-            -destination "platform=iOS Simulator,name=Any iOS Simulator Device" \
+            -destination "generic/platform=iOS Simulator" \
             -derivedDataPath "build_output" \
             ONLY_ACTIVE_ARCH=NO \
             ARCHS="$RUNNER_ARCH" \
