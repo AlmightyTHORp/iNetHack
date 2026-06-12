@@ -25,7 +25,6 @@
 		439F0DD51001FECB0050AED4 /* MenuViewLeaf.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439F0DD41001FECB0050AED4 /* MenuViewLeaf.xib */; };
 		439F0ED2100210690050AED4 /* ExtendedCommandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439F0ED1100210690050AED4 /* ExtendedCommandViewController.m */; };
 		439F0ED4100210770050AED4 /* ExtendedCommandView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439F0ED3100210770050AED4 /* ExtendedCommandView.xib */; };
-		43A103AC10B5706E006DD634 /* tiles32.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A103A710B5706E006DD634 /* tiles32.png */; };
 		43A1879D100C9129001BDB88 /* Shortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A1879C100C9129001BDB88 /* Shortcut.m */; };
 		43A187A8100C92DC001BDB88 /* ShortcutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A187A7100C92DC001BDB88 /* ShortcutView.m */; };
 		43A7B06A10302D880083CE1B /* DMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A7B06910302D880083CE1B /* DMath.m */; };
@@ -391,7 +390,6 @@
 		439F0ED0100210690050AED4 /* ExtendedCommandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtendedCommandViewController.h; sourceTree = "<group>"; };
 		439F0ED1100210690050AED4 /* ExtendedCommandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtendedCommandViewController.m; sourceTree = "<group>"; };
 		439F0ED3100210770050AED4 /* ExtendedCommandView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExtendedCommandView.xib; sourceTree = "<group>"; };
-		43A103A710B5706E006DD634 /* tiles32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiles32.png; sourceTree = "<group>"; };
 		43A1879B100C9129001BDB88 /* Shortcut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shortcut.h; sourceTree = "<group>"; };
 		43A1879C100C9129001BDB88 /* Shortcut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shortcut.m; sourceTree = "<group>"; };
 		43A187A6100C92DC001BDB88 /* ShortcutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShortcutView.h; sourceTree = "<group>"; };
@@ -1013,7 +1011,6 @@
 			isa = PBXGroup;
 			children = (
 				FBA6C9D81B47442C006C88B5 /* nevanda32.png */,
-				43A103A710B5706E006DD634 /* tiles32.png */,
 				43A7B1C9103046EA0083CE1B /* petmark.png */,
 			);
 			path = Tilesets;
@@ -1710,7 +1707,6 @@
 				4325C35C1035FC3F00653E8A /* Entitlements.plist in Resources */,
 				43AFFC22103FE53500DCC8C1 /* ItemAmountView.xib in Resources */,
 				43DC336B1070CD1C00FBCE71 /* MainMenuView.xib in Resources */,
-				43A103AC10B5706E006DD634 /* tiles32.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
