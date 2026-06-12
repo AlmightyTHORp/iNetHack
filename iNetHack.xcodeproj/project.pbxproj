@@ -356,7 +356,6 @@
 		FBAC44CD298C5FAD00CCFA26 /* wizard3.lev in Resources */ = {isa = PBXBuildFile; fileRef = FBAC43D4298C379100CCFA26 /* wizard3.lev */; };
 		FBAC44CE298C5FAD00CCFA26 /* wizhelp in Resources */ = {isa = PBXBuildFile; fileRef = FBAC441A298C379500CCFA26 /* wizhelp */; };
 		FBB7FAA51A893650008F64AD /* Images-2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBB7FAA41A89364F008F64AD /* Images-2.xcassets */; };
-		FBE5BC272D84F3F30092ACCF /* dawnhack32-anim1.png in Resources */ = {isa = PBXBuildFile; fileRef = FBE5BC262D84F3F30092ACCF /* dawnhack32-anim1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -842,7 +841,6 @@
 		FBAC441A298C379500CCFA26 /* wizhelp */ = {isa = PBXFileReference; lastKnownFileType = text; name = wizhelp; path = nethack/dat/wizhelp; sourceTree = "<group>"; };
 		FBAC441B298C379500CCFA26 /* Hea-strt.lev */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Hea-strt.lev"; path = "nethack/dat/Hea-strt.lev"; sourceTree = "<group>"; };
 		FBB7FAA41A89364F008F64AD /* Images-2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Images-2.xcassets"; path = "iNetHack2/Images-2.xcassets"; sourceTree = "<group>"; };
-		FBE5BC262D84F3F30092ACCF /* dawnhack32-anim1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dawnhack32-anim1.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1503,7 +1501,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBE5BC272D84F3F30092ACCF /* dawnhack32-anim1.png in Resources */,
 				FB6CDF992996977600BD5D0E /* Px437_IBM_VGA_8x16.ttf in Resources */,
 				FBAC4445298C5FAC00CCFA26 /* air.lev in Resources */,
 				FBAC4446298C5FAC00CCFA26 /* Arc-fila.lev in Resources */,
