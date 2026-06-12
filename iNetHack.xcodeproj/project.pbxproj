@@ -175,8 +175,6 @@
 		FB6CDF7829944BF400BD5D0E /* lib in Resources */ = {isa = PBXBuildFile; fileRef = FB6CDF7729944BF400BD5D0E /* lib */; };
 		FB6CDF992996977600BD5D0E /* Px437_IBM_VGA_8x16.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB6CDF982996976300BD5D0E /* Px437_IBM_VGA_8x16.ttf */; };
 		FB6CDF9D29B9C31A00BD5D0E /* tiles32classic.png in Resources */ = {isa = PBXBuildFile; fileRef = FB6CDF9C29B9C31500BD5D0E /* tiles32classic.png */; };
-		FB76CA252D53BB5500DF971A /* dawnhack32-anim.png in Resources */ = {isa = PBXBuildFile; fileRef = FB76CA242D53BB5500DF971A /* dawnhack32-anim.png */; };
-		FB94F05A2D5A794F00A9E36A /* duskhack32.png in Resources */ = {isa = PBXBuildFile; fileRef = FB94F0592D5A794F00A9E36A /* duskhack32.png */; };
 		FBA6C9DA1B47442C006C88B5 /* nevanda32.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA6C9D81B47442C006C88B5 /* nevanda32.png */; };
 		FBA6D35E1D52410A006B4238 /* TextInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBA6D35D1D52410A006B4238 /* TextInputView.xib */; };
 		FBAC441C298C379500CCFA26 /* mines.des in Resources */ = {isa = PBXBuildFile; fileRef = FBAC436C298C378A00CCFA26 /* mines.des */; };
@@ -663,8 +661,6 @@
 		FB6CDF7729944BF400BD5D0E /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
 		FB6CDF982996976300BD5D0E /* Px437_IBM_VGA_8x16.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Px437_IBM_VGA_8x16.ttf; sourceTree = "<group>"; };
 		FB6CDF9C29B9C31500BD5D0E /* tiles32classic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiles32classic.png; sourceTree = "<group>"; };
-		FB76CA242D53BB5500DF971A /* dawnhack32-anim.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dawnhack32-anim.png"; sourceTree = "<group>"; };
-		FB94F0592D5A794F00A9E36A /* duskhack32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = duskhack32.png; sourceTree = "<group>"; };
 		FBA6C9D81B47442C006C88B5 /* nevanda32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nevanda32.png; sourceTree = "<group>"; };
 		FBA6D35D1D52410A006B4238 /* TextInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextInputView.xib; sourceTree = "<group>"; };
 		FBAC436A298C378A00CCFA26 /* medusa-1.lev */ = {isa = PBXFileReference; lastKnownFileType = file; name = "medusa-1.lev"; path = "nethack/dat/medusa-1.lev"; sourceTree = "<group>"; };
@@ -1011,6 +1007,7 @@
 			isa = PBXGroup;
 			children = (
 				FBA6C9D81B47442C006C88B5 /* nevanda32.png */,
+				FB6CDF9C29B9C31500BD5D0E /* tiles32classic.png */,
 				43A7B1C9103046EA0083CE1B /* petmark.png */,
 			);
 			path = Tilesets;
