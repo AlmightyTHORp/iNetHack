@@ -72,9 +72,11 @@ targets:
         CLANG_ENABLE_OBJC_ARC: NO       
         OTHER_CFLAGS: "-x objective-c"  
         
+        # --- COMPLETE COMPILER LOOKUP TRACKS ---
         HEADER_SEARCH_PATHS: 
           - "$(SRCROOT)/nethack/include"
           - "$(SRCROOT)/nethack/sys/share"          
+          - "$(SRCROOT)/nethack/win/share"          # <-- Fixes structural tile map declaration holes
           - "$(SRCROOT)/nethack/submodules/lua"     
           - "$(SRCROOT)/nethack/submodules/lua/src" 
-          - "$(SRCROOT)/nethack/submodules/pdcursesmod" 
+          - "$(SRCROOT)/nethack/submodules/pdcursesmod"
