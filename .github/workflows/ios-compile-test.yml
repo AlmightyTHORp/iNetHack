@@ -33,8 +33,7 @@ jobs:
 
           # Move the header file to the shared search path directory
           cp nethack/sys/msdos/nhlua.h nethack/include/
-          mkdir -p nethack/lib/lua544
-          ln -s ../../submodules/lua nethack/lib/lua544/src
+          cp nethack/sys/msdos/nhlua.h nethack/include/
 
       - name: "Step 2: Generate and Compile App for Physical iPhone Hardware"
         run: |
