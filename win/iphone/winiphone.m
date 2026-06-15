@@ -71,45 +71,45 @@ boolean winiphone_autokick = TRUE;
 boolean winiphone_clickable_tiles = FALSE;
 boolean winiphone_travel = TRUE;
 
-// 1. Declare the container structure globally without static element assignments
 struct window_procs iphone_procs;
 
-// 2. Automatically bind the function address layouts on app launch
 __attribute__((constructor)) static void initialize_iphone_window_procs() {
     iphone_procs.name = "iphone";
-    iphone_procs.w_init_nhwindows = (void *)iphone_init_nhwindows;
-    iphone_procs.w_player_selection = (void *)iphone_player_selection;
-    iphone_procs.w_askname = (void *)iphone_askname;
-    iphone_procs.w_get_nh_event = (void *)iphone_get_nh_event;
-    iphone_procs.w_exit_nhwindows = (void *)iphone_exit_nhwindows;
-    iphone_procs.w_suspend_nhwindows = (void *)iphone_suspend_nhwindows;
-    iphone_procs.w_resume_nhwindows = (void *)iphone_resume_nhwindows;
-    iphone_procs.w_create_nhwindow = (void *)iphone_create_nhwindow;
-    iphone_procs.w_clear_nhwindow = (void *)iphone_clear_nhwindow;
-    iphone_procs.w_display_nhwindow = (void *)iphone_display_nhwindow;
-    iphone_procs.w_destroy_nhwindow = (void *)iphone_destroy_nhwindow;
-    iphone_procs.w_curs = (void *)iphone_curs;
-    iphone_procs.w_putstr = (void *)iphone_putstr;
-    iphone_procs.w_display_file = (void *)iphone_display_file;
-    iphone_procs.w_start_menu = (void *)iphone_start_menu;
-    iphone_procs.w_add_menu = (void *)iphone_add_menu;
-    iphone_procs.w_end_menu = (void *)iphone_end_menu;
-    iphone_procs.w_select_menu = (void *)iphone_select_menu;
-    iphone_procs.w_cliparound = (void *)iphone_cliparound;
-    iphone_procs.w_print_glyph = (void *)iphone_print_glyph;
-    iphone_procs.w_raw_print = (void *)iphone_raw_print;
-    iphone_procs.w_raw_print_bold = (void *)iphone_raw_print_bold;
-    iphone_procs.w_nhgetch = (void *)iphone_nhgetch;
-    iphone_procs.w_nh_poskey = (void *)iphone_nh_poskey;
-    iphone_procs.w_bell = (void *)iphone_bell;
-    iphone_procs.w_doprev_message = (void *)iphone_doprev_message;
-    iphone_procs.w_yn_function = (void *)iphone_yn_function;
-    iphone_procs.w_getlin = (void *)iphone_getlin;
-    iphone_procs.w_get_ext_cmd = (void *)iphone_get_ext_cmd;
-    iphone_procs.w_number_pad = (void *)iphone_number_pad;
-    iphone_procs.w_delay_output = (void *)iphone_delay_output;
-    iphone_procs.w_outrip = (void *)iphone_outrip;
-    iphone_procs.w_preference_update = (void *)iphone_preference_update;
+    
+    # Corrected modern structure prefixes:
+    iphone_procs.win_init_nhwindows = (void *)iphone_init_nhwindows;
+    iphone_procs.win_player_selection = (void *)iphone_player_selection;
+    iphone_procs.win_askname = (void *)iphone_askname;
+    iphone_procs.win_get_nh_event = (void *)iphone_get_nh_event;
+    iphone_procs.win_exit_nhwindows = (void *)iphone_exit_nhwindows;
+    iphone_procs.win_suspend_nhwindows = (void *)iphone_suspend_nhwindows;
+    iphone_procs.win_resume_nhwindows = (void *)iphone_resume_nhwindows;
+    iphone_procs.win_create_nhwindow = (void *)iphone_create_nhwindow;
+    iphone_procs.win_clear_nhwindow = (void *)iphone_clear_nhwindow;
+    iphone_procs.win_display_nhwindow = (void *)iphone_display_nhwindow;
+    iphone_procs.win_destroy_nhwindow = (void *)iphone_destroy_nhwindow;
+    iphone_procs.win_curs = (void *)iphone_curs;
+    iphone_procs.win_putstr = (void *)iphone_putstr;
+    iphone_procs.win_display_file = (void *)iphone_display_file;
+    iphone_procs.win_start_menu = (void *)iphone_start_menu;
+    iphone_procs.win_add_menu = (void *)iphone_add_menu;
+    iphone_procs.win_end_menu = (void *)iphone_end_menu;
+    iphone_procs.win_select_menu = (void *)iphone_select_menu;
+    iphone_procs.win_cliparound = (void *)iphone_cliparound;
+    iphone_procs.win_print_glyph = (void *)iphone_print_glyph;
+    iphone_procs.win_raw_print = (void *)iphone_raw_print;
+    iphone_procs.win_raw_print_bold = (void *)iphone_raw_print_bold;
+    iphone_procs.win_nhgetch = (void *)iphone_nhgetch;
+    iphone_procs.win_nh_poskey = (void *)iphone_nh_poskey;
+    iphone_procs.win_bell = (void *)iphone_bell;
+    iphone_procs.win_doprev_message = (void *)iphone_doprev_message;
+    iphone_procs.win_yn_function = (void *)iphone_yn_function;
+    iphone_procs.win_getlin = (void *)iphone_getlin;
+    iphone_procs.win_get_ext_cmd = (void *)iphone_get_ext_cmd;
+    iphone_procs.win_number_pad = (void *)iphone_number_pad;
+    iphone_procs.win_delay_output = (void *)iphone_delay_output;
+    iphone_procs.win_outrip = (void *)iphone_outrip;
+    iphone_procs.win_preference_update = (void *)iphone_preference_update;
 }
 
 
