@@ -32,6 +32,7 @@ targets:
           - "sys/windows/**"           # Excludes baseline desktop Unix variants if they aren't utilized
           - "sys/msdos/**"           # Excludes baseline desktop Unix variants if they aren't utilized
           - "outdated/**"           # Completely ignores old platforms like Qt3
+          - "win/Qt/**"
       - path: gfx
       - path: iNethack2
       - path: Tilesets
@@ -49,3 +50,5 @@ targets:
 
         MARKETING_VERSION: "2.1.5"       # The App Store version string
         CURRENT_PROJECT_VERSION: "46"    # The internal build number string
+        HEADER_SEARCH_PATHS: 
+          - "$(SRCROOT)/nethack/include"
