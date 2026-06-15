@@ -27,7 +27,6 @@ targets:
     # 2. This is where you explicitly define the final app's identities
     settings:
       base:
-        INFOPLIST_FILE: Info.plist
         GCC_C_LANGUAGE_STANDARD: gnu99
         CLANG_ENABLE_OBJC_ARC: YES
         
@@ -35,7 +34,7 @@ targets:
         PRODUCT_NAME: iNethack2 
 
         # This populates the $(PRODUCT_BUNDLE_IDENTIFIER) variable safely
-        PRODUCT_BUNDLE_IDENTIFIER: com.futureshocksoftware.inethack2;
+        PRODUCT_BUNDLE_IDENTIFIER: com.futureshocksoftware.inethack2
 
         MARKETING_VERSION: "2.1.5"       # The App Store version string
         CURRENT_PROJECT_VERSION: "46"    # The internal build number string
