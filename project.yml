@@ -18,9 +18,9 @@ targets:
       - sdk: CoreGraphics.framework
 
     sources:
-      # --- TARGETED OBJECTIVE-C COMPILE OVERRIDE ---
+      # --- TARGETED COMPILER OVERRIDES FOR IOS FRONTEND CODE ---
       - path: Classes
-        compilerFlags: "-x objective-c"
+        compilerFlags: "-x objective-c -Dlock=fqn_prefix_locked[0]"
         
       - path: Settings.bundle
       - path: nethack
@@ -47,9 +47,6 @@ targets:
           - "**/win/tty/**"         
           - "**/win/chain/**"       
           - "**/win/win32/**"       
-          
-          # --- COMPLETE WINDOW SHARE FOLDER STRIPPER ---
-          # This sweeps out tileset.c, tiletext.c, and all desktop format readers instantly!
           - "**/win/share/**" 
 
           # --- AUDIO BACKEND ENGINE FILTERS ---
