@@ -72,11 +72,16 @@ targets:
         CLANG_ENABLE_OBJC_ARC: NO       
         OTHER_CFLAGS: "-x objective-c"  
         
-        # --- COMPLETE COMPILER LOOKUP TRACKS ---
+        # --- FIX FOR IOS LUA SYSTEM AVAILABILITY ERROR ---
+        # Defining these macros prevents loslib.c from invoking forbidden desktop shell tasks
+        GCC_PREPROCESSOR_DEFINITIONS:
+          - "LUA_USE_DLOPEN=1"
+          - "l_system(x)=-1" # Overrides the system() macro call to gracefully return a safe fail status natively
+        
         HEADER_SEARCH_PATHS: 
           - "$(SRCROOT)/nethack/include"
           - "$(SRCROOT)/nethack/sys/share"          
-          - "$(SRCROOT)/nethack/win/share"          # <-- Fixes structural tile map declaration holes
+          - "$(SRCROOT)/nethack/win/share"          
           - "$(SRCROOT)/nethack/submodules/lua"     
           - "$(SRCROOT)/nethack/submodules/lua/src" 
           - "$(SRCROOT)/nethack/submodules/pdcursesmod"
