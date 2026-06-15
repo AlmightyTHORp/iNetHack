@@ -1,0 +1,7 @@
+name: iNethack
+targets:
+  MyAppName:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources: [MyAppName] # The folder containing your Swift/Obj-C files
