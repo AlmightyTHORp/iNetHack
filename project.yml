@@ -27,3 +27,9 @@ targets:
         
         # This overrides the output binary and bundle identity name to iNethack2
         PRODUCT_NAME: iNethack2 
+
+        # This populates the $(PRODUCT_BUNDLE_IDENTIFIER) variable safely
+        PRODUCT_BUNDLE_IDENTIFIER: com.futureshocksoftware.inethack2;
+
+        MARKETING_VERSION: "2.1.5"       # The App Store version string
+        CURRENT_PROJECT_VERSION: "46"    # The internal build number string
