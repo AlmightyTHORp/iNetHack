@@ -2,7 +2,7 @@
 name: iNetHack
 
 options:
-  bundleIdPrefix: com.example
+  bundleIdPrefix: com.futureshocksoftware
 
 targets:
   iNetHack: # The internal build target name remains the same as your legacy code references
