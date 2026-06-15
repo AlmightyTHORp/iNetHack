@@ -36,18 +36,24 @@ targets:
           - "outdated/**"           # Completely ignores old platforms like Qt3
           - "win/Qt/**"
           
-          # --- NEW EXCLUSIONS FOR INTERNALLY LINKED PDCURSES SUBMODULE ---
-          - "submodules/pdcursesmod/cmake/**"      # Filters duplicate desktop cmake templates
-          - "submodules/pdcursesmod/dos*/**"       # Blocks DOS layouts
-          - "submodules/pdcursesmod/gl/**"         # Blocks desktop GL builds
-          - "submodules/pdcursesmod/ncurses/**"    # Blocks linux terminal lookups
-          - "submodules/pdcursesmod/os2*/**"       # Blocks OS2 builds
-          - "submodules/pdcursesmod/sdl*/**"       # Blocks SDL engine variants
-          - "submodules/pdcursesmod/vt/**"          # Blocks VT terminal emulation
-          - "submodules/pdcursesmod/win*/**"       # Blocks Windows desktop backends
-          - "submodules/pdcursesmod/x11/**"        # Blocks Unix desktop graphic servers
-          - "submodules/pdcursesmod/docs/**"       # Blocks duplicative markdown documentation
-          - "submodules/pdcursesmod/demos/**"      # Blocks duplicative demo scripts
+          # --- PDCURSES INTERNALLY LINKED SUBMODULE EXCLUSIONS ---
+          - "submodules/pdcursesmod/cmake/**"      
+          - "submodules/pdcursesmod/dos*/**"       
+          - "submodules/pdcursesmod/gl/**"         
+          - "submodules/pdcursesmod/ncurses/**"    
+          - "submodules/pdcursesmod/os2*/**"       
+          - "submodules/pdcursesmod/sdl*/**"       
+          - "submodules/pdcursesmod/vt/**"          
+          - "submodules/pdcursesmod/win*/**"       
+          - "submodules/pdcursesmod/x11/**"        
+          - "submodules/pdcursesmod/docs/**"       
+          - "submodules/pdcursesmod/demos/**"      
+          
+          # --- NEW DETAILED FILE TYPE & ASSET STRIP FILTERS ---
+          - "submodules/pdcursesmod/common/**"     # Excludes the conflicting desktop assets (.xpm, .mif)
+          - "**/*.xpm"                             # Safety catch: strips loose legacy pixmap icon files
+          - "**/*.mif"                             # Safety catch: strips obsolete compiler macro index description files
+          - "**/*.md"                              # Safety catch: stops any other sub-component documentation leaks
           
       - path: gfx
       - path: iNethack2
@@ -63,10 +69,10 @@ targets:
         MARKETING_VERSION: "2.1.5"       # The App Store version string
         CURRENT_PROJECT_VERSION: "46"    # The internal build number string
         
-        # --- FIXED RECURSIVE HEADER LOOKUP ---
+        # --- RECURSIVE HEADER LOOKUP ---
         HEADER_SEARCH_PATHS: 
           - "$(SRCROOT)/nethack/include"
           - "$(SRCROOT)/nethack/sys/share"          
           - "$(SRCROOT)/nethack/submodules/lua"     
           - "$(SRCROOT)/nethack/submodules/lua/src" 
-          - "$(SRCROOT)/nethack/submodules/pdcursesmod" # Keeps PDCurses core library headers reachable
+          - "$(SRCROOT)/nethack/submodules/pdcursesmod" 
