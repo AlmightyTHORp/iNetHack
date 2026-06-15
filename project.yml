@@ -36,7 +36,7 @@ targets:
           - "outdated/**"           
           - "win/Qt/**"
           
-          # --- EXPANDED SUBMODULE EXCLUSIONS ---
+          # --- PDCURSES INTERNALLY LINKED SUBMODULE EXCLUSIONS ---
           - "submodules/pdcursesmod/cmake/**"      
           - "submodules/pdcursesmod/dos*/**"       
           - "submodules/pdcursesmod/gl/**"         
@@ -49,11 +49,10 @@ targets:
           - "submodules/pdcursesmod/docs/**"       
           - "submodules/pdcursesmod/demos/**"      
           - "submodules/pdcursesmod/common/**"     
-          - "submodules/lua/testes/**"             # <-- Completely blocks the duplicate .lua test files
-          - "lib/lua544/**"                        # Safety blocker for the old lib layout
+          - "submodules/lua/testes/**"             
           - "**/*.xpm"                             
           - "**/*.mif"                             
-          - "**/*.md"                              
+          - "**/*.md" 
           
       - path: gfx
       - path: iNethack2
