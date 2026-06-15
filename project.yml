@@ -48,10 +48,9 @@ targets:
           - "**/win/chain/**"       
           - "**/win/win32/**"       
           
-          # --- SPECIFIC DESKTOP IMAGE PARSER BLOCKERS ---
-          # This cleans out giftiles.c, gifread.c, bmptiles.c, and tileset.c all at once!
-          - "**/win/share/*tiles.c" 
-          - "**/win/share/*read.c"  
+          # --- COMPLETE WINDOW SHARE FOLDER STRIPPER ---
+          # This sweeps out tileset.c, tiletext.c, and all desktop format readers instantly!
+          - "**/win/share/**" 
 
           # --- AUDIO BACKEND ENGINE FILTERS ---
           - "**/sound/**"           
