@@ -43,12 +43,13 @@ targets:
           - "**/win/proxy/**"       
           - "**/win/tty/**"         
           - "**/win/chain/**"       
+          - "**/win/share/tileset.c" # <-- Excludes the conflicting desktop tile parsing code completely
 
           # --- AUDIO BACKEND ENGINE FILTERS ---
           - "**/sound/**"           
           
           # --- UTILITY COMPILER ENGINE FILTERS ---
-          - "**/util/**"            # <-- Fixes the sfproto.h missing file error completely
+          - "**/util/**"            
 
           # --- PDCURSES ALL SUBMODULE EXCLUSIONS ---
           - "**/submodules/pdcurses/**"       
@@ -72,11 +73,9 @@ targets:
         CLANG_ENABLE_OBJC_ARC: NO       
         OTHER_CFLAGS: "-x objective-c"  
         
-        # --- FIX FOR IOS LUA SYSTEM AVAILABILITY ERROR ---
-        # Defining these macros prevents loslib.c from invoking forbidden desktop shell tasks
         GCC_PREPROCESSOR_DEFINITIONS:
           - "LUA_USE_DLOPEN=1"
-          - "l_system(x)=-1" # Overrides the system() macro call to gracefully return a safe fail status natively
+          - "l_system(x)=-1"
         
         HEADER_SEARCH_PATHS: 
           - "$(SRCROOT)/nethack/include"
