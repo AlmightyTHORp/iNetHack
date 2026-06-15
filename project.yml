@@ -1,4 +1,4 @@
-# 1. This controls the name of the generated Xcode project file (e.g., iNethack.xcodeproj)
+# 1. This controls the name of the generated Xcode project file (e.g., iNetHack.xcodeproj)
 name: iNetHack
 
 options:
@@ -29,15 +29,16 @@ targets:
           - "**/*.rc"               # Blocks Windows resource layout scripts
           - "sys/vms/**"            # Excludes alternative VMS operating system code
           - "sys/unix/**"           # Excludes baseline desktop Unix variants if they aren't utilized
-          - "sys/windows/**"           # Excludes baseline desktop Unix variants if they aren't utilized
-          - "sys/amiga/**"            # Excludes alternative VMS operating system code
-          - "sys/msdos/**"           # Excludes baseline desktop Unix variants if they aren't utilized
-          - "sys/share/**"           # Excludes baseline desktop Unix variants if they aren't utilized
+          - "sys/windows/**"        # Excludes alternative Windows operating system code
+          - "sys/amiga/**"          # Excludes alternative Amiga operating system code
+          - "sys/msdos/**"          # Excludes legacy MS-DOS code (nhlua.h will be rescued out of here)
+          - "sys/share/**"          # Prevents loose share platform code from building
           - "outdated/**"           # Completely ignores old platforms like Qt3
           - "win/Qt/**"
       - path: gfx
       - path: iNethack2
       - path: Tilesets
+      
     # 2. This is where you explicitly define the final app's identities
     settings:
       base:
@@ -45,9 +46,12 @@ targets:
         CLANG_ENABLE_OBJC_ARC: YES
         PRODUCT_NAME: iNethack2 
         PRODUCT_BUNDLE_IDENTIFIER: com.futureshocksoftware.inethack2
-        MARKETING_VERSION: "2.1.5"       
-        CURRENT_PROJECT_VERSION: "46"    
+        MARKETING_VERSION: "2.1.5"       # The App Store version string
+        CURRENT_PROJECT_VERSION: "46"    # The internal build number string
         
+        # --- FIXED RECURSIVE HEADER LOOKUP ---
         HEADER_SEARCH_PATHS: 
-          - "$(SRCROOT)/nethack/include/**"
-          - "$(SRCROOT)/nethack/sys/share/**"
+          - "$(SRCROOT)/nethack/include"
+          - "$(SRCROOT)/nethack/sys/share"          # Included for search only, keeping source file exclusions intact
+          - "$(SRCROOT)/nethack/submodules/lua"     # Maps lookup for core submodule files
+          - "$(SRCROOT)/nethack/submodules/lua/src" # Safety catch for standard Lua source trees
