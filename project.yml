@@ -29,6 +29,8 @@ targets:
           - "**/*.rc"               # Blocks Windows resource layout scripts
           - "sys/vms/**"            # Excludes alternative VMS operating system code
           - "sys/unix/**"           # Excludes baseline desktop Unix variants if they aren't utilized
+          - "sys/windows/**"           # Excludes baseline desktop Unix variants if they aren't utilized
+          - "sys/msdos/**"           # Excludes baseline desktop Unix variants if they aren't utilized
           - "outdated/**"           # Completely ignores old platforms like Qt3
       - path: gfx
       - path: iNethack2
