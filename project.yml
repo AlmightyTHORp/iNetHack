@@ -1,11 +1,11 @@
 # 1. This controls the name of the generated Xcode project file (e.g., iNethack.xcodeproj)
-name: iNethack
+name: iNetHack
 
 options:
   bundleIdPrefix: com.example
 
 targets:
-  iNethack: # The internal build target name remains the same as your legacy code references
+  iNetHack: # The internal build target name remains the same as your legacy code references
     type: application
     platform: iOS
     deploymentTarget: "16.0"
