@@ -70,13 +70,7 @@ xcodeextra = bogusmon cmdhelp data engrave epitaph help hh \
 devhelp-xcode:
 	@echo "\t\t\tinputPaths = ("
 	@echo "$(xcodeextra) $(notdir $(alllua))" | \
-	    $(AWK) '{for (i=1; i<=NF; ++i)printf "%s%s%s%s%s", \
-	        i == 1? "\t" : "", \
-		"\t\t\t\042$$(NH_DAT_DIR)/", \
-		$$i, \
-		"\042", \
-		i % 1? " ": ((i == NF)? "\n" : ",\n\t")} \
-		i % 1{print ""}'
+	    $(AWK) '{for (i=1; i<=NF; ++i) printf "%s%s%s%s%s", (i == 1 ? "\t" : ""), "\t\t\t\042$$(NH_DAT_DIR)/", $$i, "\042", (i % 1 ? " " : ((i == NF) ? "\n" : ",\n\t")); if (i % 1) print ""}'
 	@echo "\t\t\t);"
 #
 # generates lines to insert into
@@ -86,7 +80,7 @@ devhelp-vstudio:
 	@echo "  <ItemGroup>"
 	@echo "$(notdir $(alllua))" | \
 	    $(AWK) '{for (i=1; i<=NF; ++i)printf "%s%s%s%s%s", \
-	        i == 1? "    " : "", \
+	        i == 1 ? "    " : "", \
 		"<Luafiles Include = \042", \
 		$$i, \
 		"\042/>", \
