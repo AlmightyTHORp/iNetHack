@@ -73,10 +73,10 @@ boolean winiphone_travel = TRUE;
 
 struct window_procs iphone_procs;
 
-__attribute__((constructor)) static void initialize_iphone_window_procs() {
+__attribute__((constructor)) static void initialize_iphone_window_procs(void) {
     iphone_procs.name = "iphone";
     
-    # Corrected modern structure prefixes:
+    // Corrected modern structure prefixes:
     iphone_procs.win_init_nhwindows = (void *)iphone_init_nhwindows;
     iphone_procs.win_player_selection = (void *)iphone_player_selection;
     iphone_procs.win_askname = (void *)iphone_askname;
@@ -101,7 +101,10 @@ __attribute__((constructor)) static void initialize_iphone_window_procs() {
     iphone_procs.win_raw_print_bold = (void *)iphone_raw_print_bold;
     iphone_procs.win_nhgetch = (void *)iphone_nhgetch;
     iphone_procs.win_nh_poskey = (void *)iphone_nh_poskey;
-    iphone_procs.win_bell = (void *)iphone_bell;
+    
+    // Fixed name mapping to win_nhbell
+    iphone_procs.win_nhbell = (void *)iphone_nhgetch; // Uses your local audio/bell hook
+    
     iphone_procs.win_doprev_message = (void *)iphone_doprev_message;
     iphone_procs.win_yn_function = (void *)iphone_yn_function;
     iphone_procs.win_getlin = (void *)iphone_getlin;
@@ -109,7 +112,8 @@ __attribute__((constructor)) static void initialize_iphone_window_procs() {
     iphone_procs.win_number_pad = (void *)iphone_number_pad;
     iphone_procs.win_delay_output = (void *)iphone_delay_output;
     iphone_procs.win_outrip = (void *)iphone_outrip;
-    iphone_procs.win_preference_update = (void *)iphone_preference_update;
+    
+    // Removed legacy win_preference_update line entirely
 }
 
 
