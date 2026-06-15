@@ -35,7 +35,7 @@ targets:
           - "**/sys/share/**"          
           - "**/outdated/**"           
           
-          # --- EXPANDED WINDOW SYSTEM STRIPIFY FILTERS ---
+          # --- WINDOW SYSTEM STRIPIFY FILTERS ---
           - "**/win/Qt/**"          
           - "**/win/X11/**"         
           - "**/win/gem/**"         
@@ -44,22 +44,13 @@ targets:
           - "**/win/tty/**"         
 
           # --- AUDIO BACKEND ENGINE FILTERS ---
-          - "**/sound/**"           # <-- Strips the Windows and Qt audio subsystem modules completely
+          - "**/sound/**"           
           
-          # --- PDCURSES INTERNALLY LINKED SUBMODULE EXCLUSIONS ---
-          - "submodules/pdcursesmod/cmake/**"      
-          - "submodules/pdcursesmod/dos*/**"       
-          - "submodules/pdcursesmod/gl/**"         
-          - "submodules/pdcursesmod/ncurses/**"    
-          - "submodules/pdcursesmod/os2*/**"       
-          - "submodules/pdcursesmod/sdl*/**"       
-          - "submodules/pdcursesmod/vt/**"          
-          - "submodules/pdcursesmod/win*/**"       
-          - "submodules/pdcursesmod/x11/**"        
-          - "submodules/pdcursesmod/docs/**"       
-          - "submodules/pdcursesmod/demos/**"      
-          - "submodules/pdcursesmod/common/**"     
-          - "submodules/lua/testes/**"             
+          # --- PDCURSES ALL SUBMODULE EXCLUSIONS ---
+          # This stops the duplicate compilation loops of terminal layouts entirely
+          - "**/submodules/pdcurses/**"       # <-- Fixes the struct _win compile errors
+          - "**/submodules/pdcursesmod/**"    # <-- Ensures terminal rendering code is skipped
+          - "**/submodules/lua/testes/**"             
           - "**/*.xpm"                             
           - "**/*.mif"                             
           - "**/*.md"                              
