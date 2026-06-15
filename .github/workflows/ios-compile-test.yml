@@ -36,12 +36,6 @@ jobs:
           cp nethack/submodules/lua/*.h nethack/lib/lua544/src/ || true
           cp nethack/submodules/lua/src/*.h nethack/lib/lua544/src/ || true
 
-          # --- SAFELY FIX APP DELEGATE REFERENCE WITHOUT BREAKING NSLOCK ---
-          # This replaces the unlinked variable 'lock' with a literal string filename for the sandbox
-          sed -i '' 's/encoding:NSASCIIStringEncoding\];/encoding:NSASCIIStringEncoding\]; lockFile = @"nethack.lock";/g' Classes/iNethackAppDelegate.m
-          sed -i '' 's/unlink(lock);/unlink("nethack.lock");/g' Classes/iNethackAppDelegate.m
-          sed -i '' 's/lock);/ "nethack.lock");/g' Classes/iNethackAppDelegate.m
-
       - name: "Step 2: Generate and Compile App for Physical iPhone Hardware"
         run: |
           # Instantly builds a fresh, uncorrupted iNetHack.xcodeproj
