@@ -37,6 +37,7 @@ jobs:
           mkdir -p build_output/Build/Products/Debug-iphoneos/iNetHack2.app/lib
           echo "mock data" > build_output/Build/Products/Debug-iphoneos/iNetHack2.app/nhdat
           echo "mock library" > build_output/Build/Products/Debug-iphoneos/iNetHack2.app/lib/placeholder.txt
+          cp nethack/sys/msdos/nhlua.h nethack/include/
 
       - name: "Step 2: Compile App for Physical iPhone Hardware"
         run: |
