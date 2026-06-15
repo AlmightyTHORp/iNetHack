@@ -9,7 +9,9 @@ targets:
     type: application
     platform: iOS
     deploymentTarget: "16.0"
-    
+    info:
+      path: Info.plist
+
     frameworks:
       - sdk: Foundation.framework
       - sdk: UIKit.framework
@@ -21,7 +23,7 @@ targets:
     # 2. This is where you explicitly define the final app's identities
     settings:
       base:
-        INFOPLIST_FILE: iNethack/Info.plist
+        INFOPLIST_FILE: Info.plist
         GCC_C_LANGUAGE_STANDARD: gnu99
         CLANG_ENABLE_OBJC_ARC: YES
         
