@@ -35,7 +35,8 @@ jobs:
           mkdir -p nethack/lib/lua544/src
           cp nethack/submodules/lua/*.h nethack/lib/lua544/src/ || true
           cp nethack/submodules/lua/src/*.h nethack/lib/lua544/src/ || true
-
+          echo '#define AM_PM' > nethack/include/date.h
+          echo '#define TIMED_DELAY' >> nethack/include/date.h
       - name: "Step 2: Generate and Compile App for Physical iPhone Hardware"
         run: |
           # Instantly builds a fresh, uncorrupted iNetHack.xcodeproj
