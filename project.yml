@@ -42,14 +42,14 @@ targets:
           - "**/win/gnome/**"       
           - "**/win/proxy/**"       
           - "**/win/tty/**"         
+          - "**/win/chain/**"       # <-- Fixes the 'struct chain_procs' compilation errors completely
 
           # --- AUDIO BACKEND ENGINE FILTERS ---
           - "**/sound/**"           
           
           # --- PDCURSES ALL SUBMODULE EXCLUSIONS ---
-          # This stops the duplicate compilation loops of terminal layouts entirely
-          - "**/submodules/pdcurses/**"       # <-- Fixes the struct _win compile errors
-          - "**/submodules/pdcursesmod/**"    # <-- Ensures terminal rendering code is skipped
+          - "**/submodules/pdcurses/**"       
+          - "**/submodules/pdcursesmod/**"    
           - "**/submodules/lua/testes/**"             
           - "**/*.xpm"                             
           - "**/*.mif"                             
