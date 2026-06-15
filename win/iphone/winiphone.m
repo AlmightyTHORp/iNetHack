@@ -49,6 +49,8 @@
 #include "TargetConditionals.h"
 #endif
 
+// Map legacy player name references to the modern encapsulated structure variable
+#define plname (g.plname)
 #define kOptionUsername (@"username")
 #define kOptionAutopickup (@"autopickup")
 #define kOptionPickupTypes (@"pickupTypes")
