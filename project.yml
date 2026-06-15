@@ -51,8 +51,3 @@ targets:
         HEADER_SEARCH_PATHS: 
           - "$(SRCROOT)/nethack/include/**"
           - "$(SRCROOT)/nethack/sys/share/**"
-
-        # --- RE-ALIGN PREPROCESSOR CONDITIONAL MACROS ---
-        # Defining CROSSCOMPILE while keeping TARGET omitted fixes the macro check condition!
-        GCC_PREPROCESSOR_DEFINITIONS:
-          - "CROSSCOMPILE=1"
