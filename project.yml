@@ -18,7 +18,11 @@ targets:
       - sdk: CoreGraphics.framework
 
     sources:
+      # --- TARGETED OBJECTIVE-C COMPILE OVERRIDE ---
+      # This ensures only your frontend folder gets Objective-C compilation features
       - path: Classes
+        compilerFlags: "-x objective-c"
+        
       - path: Settings.bundle
       - path: nethack
         excludes:
@@ -43,7 +47,7 @@ targets:
           - "**/win/proxy/**"       
           - "**/win/tty/**"         
           - "**/win/chain/**"       
-          - "**/win/win32/**"       # <-- Fixes the 'windows.h' missing file error completely!
+          - "**/win/win32/**"       
           - "**/win/share/tileset.c" 
 
           # --- AUDIO BACKEND ENGINE FILTERS ---
@@ -72,7 +76,7 @@ targets:
         CURRENT_PROJECT_VERSION: "46"    
         
         CLANG_ENABLE_OBJC_ARC: NO       
-        OTHER_CFLAGS: "-x objective-c"  
+        # Removed global OTHER_CFLAGS: "-x objective-c" from here
         
         GCC_PREPROCESSOR_DEFINITIONS:
           - "LUA_USE_DLOPEN=1"
