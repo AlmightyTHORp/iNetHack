@@ -5,7 +5,7 @@ options:
   bundleIdPrefix: com.futureshocksoftware
 
 targets:
-  iNetHack: # The internal build target name remains the same as your legacy code references
+  iNetHack: 
     type: application
     platform: iOS
     deploymentTarget: "16.0"
@@ -23,20 +23,20 @@ targets:
       - path: nethack
         excludes:
           - "**/README.xcode"
-          - "**/README.md"          # Ignores generic text documentation 
-          - "**/Info.plist"         # Stops the outdated Qt3 Info.plist from overriding your main file
-          - "**/Makefile*"          # Prevents unix/vms compilation file conflicts
-          - "**/*.rc"               # Blocks Windows resource layout scripts
-          - "sys/vms/**"            # Excludes alternative VMS operating system code
-          - "sys/unix/**"           # Excludes baseline desktop Unix variants
-          - "sys/windows/**"        # Excludes alternative Windows operating system code
-          - "sys/amiga/**"          # Excludes alternative Amiga operating system code
-          - "sys/msdos/**"          # Excludes legacy MS-DOS code (nhlua.h will be rescued out of here)
-          - "sys/share/**"          # Prevents loose share platform code from building
-          - "outdated/**"           # Completely ignores old platforms like Qt3
+          - "**/README.md"          
+          - "**/Info.plist"         
+          - "**/Makefile*"          
+          - "**/*.rc"               
+          - "sys/vms/**"            
+          - "sys/unix/**"           
+          - "sys/windows/**"        
+          - "sys/amiga/**"          
+          - "sys/msdos/**"          
+          - "sys/share/**"          
+          - "outdated/**"           
           - "win/Qt/**"
           
-          # --- PDCURSES INTERNALLY LINKED SUBMODULE EXCLUSIONS ---
+          # --- EXPANDED SUBMODULE EXCLUSIONS ---
           - "submodules/pdcursesmod/cmake/**"      
           - "submodules/pdcursesmod/dos*/**"       
           - "submodules/pdcursesmod/gl/**"         
@@ -48,31 +48,32 @@ targets:
           - "submodules/pdcursesmod/x11/**"        
           - "submodules/pdcursesmod/docs/**"       
           - "submodules/pdcursesmod/demos/**"      
-          
-          # --- NEW DETAILED FILE TYPE & ASSET STRIP FILTERS ---
-          - "submodules/pdcursesmod/common/**"     # Excludes the conflicting desktop assets (.xpm, .mif)
-          - "**/*.xpm"                             # Safety catch: strips loose legacy pixmap icon files
-          - "**/*.mif"                             # Safety catch: strips obsolete compiler macro index description files
-          - "**/*.md"                              # Safety catch: stops any other sub-component documentation leaks
+          - "submodules/pdcursesmod/common/**"     
+          - "submodules/lua/testes/**"             # <-- Completely blocks the duplicate .lua test files
+          - "lib/lua544/**"                        # Safety blocker for the old lib layout
+          - "**/*.xpm"                             
+          - "**/*.mif"                             
+          - "**/*.md"                              
           
       - path: gfx
       - path: iNethack2
       - path: Tilesets
       
-    # 2. This is where you explicitly define the final app's identities
     settings:
       base:
         GCC_C_LANGUAGE_STANDARD: gnu99
         CLANG_ENABLE_OBJC_ARC: YES
         PRODUCT_NAME: iNethack2 
         PRODUCT_BUNDLE_IDENTIFIER: com.futureshocksoftware.inethack2
-        MARKETING_VERSION: "2.1.5"       # The App Store version string
-        CURRENT_PROJECT_VERSION: "46"    # The internal build number string
+        MARKETING_VERSION: "2.1.5"       
+        CURRENT_PROJECT_VERSION: "46"    
         
-        # --- RECURSIVE HEADER LOOKUP ---
+        # --- FIXED SEARCH PATH ALIGNMENTS ---
         HEADER_SEARCH_PATHS: 
           - "$(SRCROOT)/nethack/include"
           - "$(SRCROOT)/nethack/sys/share"          
           - "$(SRCROOT)/nethack/submodules/lua"     
           - "$(SRCROOT)/nethack/submodules/lua/src" 
           - "$(SRCROOT)/nethack/submodules/pdcursesmod" 
+          # This maps the exact relative layout path string that nhlua.h tries to resolve
+          - "$(SRCROOT)/nethack/submodules/lua/src/**"
