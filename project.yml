@@ -67,6 +67,10 @@ targets:
         MARKETING_VERSION: "2.1.5"       
         CURRENT_PROJECT_VERSION: "46"    
         
+        # --- FORCE OBJECTIVE-C COMPILATION MODE ---
+        # This tells the compiler that it is safe to process .c files with Obj-C capabilities
+        OTHER_CFLAGS: "-x objective-c"
+        
         HEADER_SEARCH_PATHS: 
           - "$(SRCROOT)/nethack/include"
           - "$(SRCROOT)/nethack/sys/share"          
