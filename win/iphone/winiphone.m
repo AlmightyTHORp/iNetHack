@@ -115,7 +115,7 @@ __attribute__((constructor)) static void initialize_iphone_window_procs(void) {
     iphone_procs.win_nh_poskey = (void *)iphone_nh_poskey;
     
     // Fixed name mapping to win_nhbell
-    iphone_procs.win_nhbell = (void *)iphone_nhgetch; // Uses your local audio/bell hook
+    iphone_procs.win_nhbell = (void *)iphone_nhbell;
     
     iphone_procs.win_doprev_message = (void *)iphone_doprev_message;
     iphone_procs.win_yn_function = (void *)iphone_yn_function;
