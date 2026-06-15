@@ -30,7 +30,9 @@ targets:
           - "sys/vms/**"            # Excludes alternative VMS operating system code
           - "sys/unix/**"           # Excludes baseline desktop Unix variants if they aren't utilized
           - "sys/windows/**"           # Excludes baseline desktop Unix variants if they aren't utilized
+          - "sys/amiga/**"            # Excludes alternative VMS operating system code
           - "sys/msdos/**"           # Excludes baseline desktop Unix variants if they aren't utilized
+          - "sys/share/**"           # Excludes baseline desktop Unix variants if they aren't utilized
           - "outdated/**"           # Completely ignores old platforms like Qt3
           - "win/Qt/**"
       - path: gfx
@@ -51,4 +53,5 @@ targets:
         MARKETING_VERSION: "2.1.5"       # The App Store version string
         CURRENT_PROJECT_VERSION: "46"    # The internal build number string
         HEADER_SEARCH_PATHS: 
-          - "$(SRCROOT)/nethack/include"
+          - "$(SRCROOT)/nethack/include/**"
+          - "$(SRCROOT)/nethack/sys/share/**"
