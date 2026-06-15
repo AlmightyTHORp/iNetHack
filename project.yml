@@ -28,13 +28,27 @@ targets:
           - "**/Makefile*"          # Prevents unix/vms compilation file conflicts
           - "**/*.rc"               # Blocks Windows resource layout scripts
           - "sys/vms/**"            # Excludes alternative VMS operating system code
-          - "sys/unix/**"           # Excludes baseline desktop Unix variants if they aren't utilized
+          - "sys/unix/**"           # Excludes baseline desktop Unix variants
           - "sys/windows/**"        # Excludes alternative Windows operating system code
           - "sys/amiga/**"          # Excludes alternative Amiga operating system code
           - "sys/msdos/**"          # Excludes legacy MS-DOS code (nhlua.h will be rescued out of here)
           - "sys/share/**"          # Prevents loose share platform code from building
           - "outdated/**"           # Completely ignores old platforms like Qt3
           - "win/Qt/**"
+          
+          # --- NEW EXCLUSIONS FOR INTERNALLY LINKED PDCURSES SUBMODULE ---
+          - "submodules/pdcursesmod/cmake/**"      # Filters duplicate desktop cmake templates
+          - "submodules/pdcursesmod/dos*/**"       # Blocks DOS layouts
+          - "submodules/pdcursesmod/gl/**"         # Blocks desktop GL builds
+          - "submodules/pdcursesmod/ncurses/**"    # Blocks linux terminal lookups
+          - "submodules/pdcursesmod/os2*/**"       # Blocks OS2 builds
+          - "submodules/pdcursesmod/sdl*/**"       # Blocks SDL engine variants
+          - "submodules/pdcursesmod/vt/**"          # Blocks VT terminal emulation
+          - "submodules/pdcursesmod/win*/**"       # Blocks Windows desktop backends
+          - "submodules/pdcursesmod/x11/**"        # Blocks Unix desktop graphic servers
+          - "submodules/pdcursesmod/docs/**"       # Blocks duplicative markdown documentation
+          - "submodules/pdcursesmod/demos/**"      # Blocks duplicative demo scripts
+          
       - path: gfx
       - path: iNethack2
       - path: Tilesets
@@ -52,6 +66,7 @@ targets:
         # --- FIXED RECURSIVE HEADER LOOKUP ---
         HEADER_SEARCH_PATHS: 
           - "$(SRCROOT)/nethack/include"
-          - "$(SRCROOT)/nethack/sys/share"          # Included for search only, keeping source file exclusions intact
-          - "$(SRCROOT)/nethack/submodules/lua"     # Maps lookup for core submodule files
-          - "$(SRCROOT)/nethack/submodules/lua/src" # Safety catch for standard Lua source trees
+          - "$(SRCROOT)/nethack/sys/share"          
+          - "$(SRCROOT)/nethack/submodules/lua"     
+          - "$(SRCROOT)/nethack/submodules/lua/src" 
+          - "$(SRCROOT)/nethack/submodules/pdcursesmod" # Keeps PDCurses core library headers reachable
