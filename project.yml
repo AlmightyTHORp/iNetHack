@@ -43,15 +43,16 @@ targets:
       base:
         GCC_C_LANGUAGE_STANDARD: gnu99
         CLANG_ENABLE_OBJC_ARC: YES
-        
-        # This overrides the output binary and bundle identity name to iNethack2
         PRODUCT_NAME: iNethack2 
-
-        # This populates the $(PRODUCT_BUNDLE_IDENTIFIER) variable safely
         PRODUCT_BUNDLE_IDENTIFIER: com.futureshocksoftware.inethack2
-
-        MARKETING_VERSION: "2.1.5"       # The App Store version string
-        CURRENT_PROJECT_VERSION: "46"    # The internal build number string
+        MARKETING_VERSION: "2.1.5"       
+        CURRENT_PROJECT_VERSION: "46"    
+        
         HEADER_SEARCH_PATHS: 
           - "$(SRCROOT)/nethack/include/**"
           - "$(SRCROOT)/nethack/sys/share/**"
+
+        # --- RE-ALIGN PREPROCESSOR CONDITIONAL MACROS ---
+        # Defining CROSSCOMPILE while keeping TARGET omitted fixes the macro check condition!
+        GCC_PREPROCESSOR_DEFINITIONS:
+          - "CROSSCOMPILE=1"
