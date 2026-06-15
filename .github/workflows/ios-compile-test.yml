@@ -43,7 +43,7 @@ jobs:
           # so Xcode generates an arm64 binary for real phone processors.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
-            -scheme "iNetHack2" \
+            -scheme "iNetHack" \
             -configuration Debug \
             -sdk iphoneos \
             -destination "generic/platform=iOS" \
