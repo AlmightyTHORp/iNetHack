@@ -36,12 +36,15 @@ targets:
           - "**/outdated/**"           
           
           # --- EXPANDED WINDOW SYSTEM STRIPIFY FILTERS ---
-          - "**/win/Qt/**"          # Desktop Qt platform
-          - "**/win/X11/**"         # <-- Fixes the X11/Intrinsic.h crash completely
-          - "**/win/gem/**"         # Atari GEM window code
-          - "**/win/gnome/**"       # Linux Gnome window code
-          - "**/win/proxy/**"       # Network proxy window wrappers
-          - "**/win/tty/**"         # Legacy command-line text terminal code
+          - "**/win/Qt/**"          
+          - "**/win/X11/**"         
+          - "**/win/gem/**"         
+          - "**/win/gnome/**"       
+          - "**/win/proxy/**"       
+          - "**/win/tty/**"         
+
+          # --- AUDIO BACKEND ENGINE FILTERS ---
+          - "**/sound/**"           # <-- Strips the Windows and Qt audio subsystem modules completely
           
           # --- PDCURSES INTERNALLY LINKED SUBMODULE EXCLUSIONS ---
           - "submodules/pdcursesmod/cmake/**"      
