@@ -18,8 +18,12 @@ targets:
       - sdk: CoreGraphics.framework
 
     sources:
-      - path: iNethack
-
+      - path: Classes
+      - path: Settings.bundle
+      - path: nethack
+      - path: gfx
+      - path: iNethack2
+      - path: Tilesets
     # 2. This is where you explicitly define the final app's identities
     settings:
       base:
