@@ -24,6 +24,7 @@ jobs:
 
       - name: "Step 1: Initialize Source and Sandbox Mock Assets"
         run: |
+          brew install xcodegen
           mkdir -p dat lib nethack/dat nethack/lib
           echo "mock data" > dat/nhdat
           echo "mock library" > lib/placeholder.txt
@@ -34,11 +35,9 @@ jobs:
           mkdir -p build_output/Build/Products/Debug-iphoneos/iNetHack2.app/lib
           echo "mock data" > build_output/Build/Products/Debug-iphoneos/iNetHack2.app/nhdat
           echo "mock library" > build_output/Build/Products/Debug-iphoneos/iNetHack2.app/lib/placeholder.txt
-          sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 
       - name: "Step 2: Compile App for Physical iPhone Hardware"
         run: |
-          cmake -G Xcode -B build/
           # We change the SDK to 'iphoneos' and target generic iOS devices 
           # so Xcode generates an arm64 binary for real phone processors.
           xcodebuild build \
