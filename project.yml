@@ -21,6 +21,8 @@ targets:
       - path: Classes
       - path: Settings.bundle
       - path: nethack
+        excludes:
+          - "**/README.xcode"
       - path: gfx
       - path: iNethack2
       - path: Tilesets
