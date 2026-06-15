@@ -49,6 +49,7 @@
 #include "TargetConditionals.h"
 #endif
 
+extern struct instance_g g;
 // 1. Existing player name mapping from previous turn
 #define plname (g.plname)
 
