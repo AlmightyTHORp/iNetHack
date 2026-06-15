@@ -47,14 +47,18 @@ targets:
           - "**/win/tty/**"         
           - "**/win/chain/**"       
           - "**/win/win32/**"       
-          - "**/win/share/tileset.c" 
+          
+          # --- SPECIFIC DESKTOP IMAGE PARSER BLOCKERS ---
+          # This cleans out giftiles.c, gifread.c, bmptiles.c, and tileset.c all at once!
+          - "**/win/share/*tiles.c" 
+          - "**/win/share/*read.c"  
 
           # --- AUDIO BACKEND ENGINE FILTERS ---
           - "**/sound/**"           
           
           # --- UTILITY & API LIBRARY FILTERS ---
           - "**/util/**"            
-          - "**/sys/libnh/**"       # <-- Fixes the chdirx and nhmain compilation errors completely!
+          - "**/sys/libnh/**"       
 
           # --- PDCURSES ALL SUBMODULE EXCLUSIONS ---
           - "**/submodules/pdcurses/**"       
