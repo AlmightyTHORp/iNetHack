@@ -38,7 +38,7 @@ jobs:
 
       - name: "Step 2: Compile App for Physical iPhone Hardware"
         run: |
-          cmake -G Xcode -B build/ -DCMAKE_Swift_COMPILER=$(xcrun --find swiftc)
+          cmake -G Xcode -B build/
           # We change the SDK to 'iphoneos' and target generic iOS devices 
           # so Xcode generates an arm64 binary for real phone processors.
           xcodebuild build \
