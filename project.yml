@@ -27,14 +27,21 @@ targets:
           - "**/Info.plist"         
           - "**/Makefile*"          
           - "**/*.rc"               
-          - "sys/vms/**"            
-          - "sys/unix/**"           
-          - "sys/windows/**"        
-          - "sys/amiga/**"          
-          - "sys/msdos/**"          
-          - "sys/share/**"          
-          - "outdated/**"           
-          - "win/Qt/**"
+          - "**/sys/vms/**"            
+          - "**/sys/unix/**"           
+          - "**/sys/windows/**"        
+          - "**/sys/amiga/**"          
+          - "**/sys/msdos/**"          
+          - "**/sys/share/**"          
+          - "**/outdated/**"           
+          
+          # --- EXPANDED WINDOW SYSTEM STRIPIFY FILTERS ---
+          - "**/win/Qt/**"          # Desktop Qt platform
+          - "**/win/X11/**"         # <-- Fixes the X11/Intrinsic.h crash completely
+          - "**/win/gem/**"         # Atari GEM window code
+          - "**/win/gnome/**"       # Linux Gnome window code
+          - "**/win/proxy/**"       # Network proxy window wrappers
+          - "**/win/tty/**"         # Legacy command-line text terminal code
           
           # --- PDCURSES INTERNALLY LINKED SUBMODULE EXCLUSIONS ---
           - "submodules/pdcursesmod/cmake/**"      
@@ -52,8 +59,7 @@ targets:
           - "submodules/lua/testes/**"             
           - "**/*.xpm"                             
           - "**/*.mif"                             
-          - "**/*.md" 
-          
+          - "**/*.md"                              
       - path: gfx
       - path: iNethack2
       - path: Tilesets
@@ -67,12 +73,9 @@ targets:
         MARKETING_VERSION: "2.1.5"       
         CURRENT_PROJECT_VERSION: "46"    
         
-        # --- FIXED SEARCH PATH ALIGNMENTS ---
         HEADER_SEARCH_PATHS: 
           - "$(SRCROOT)/nethack/include"
           - "$(SRCROOT)/nethack/sys/share"          
           - "$(SRCROOT)/nethack/submodules/lua"     
           - "$(SRCROOT)/nethack/submodules/lua/src" 
           - "$(SRCROOT)/nethack/submodules/pdcursesmod" 
-          # This maps the exact relative layout path string that nhlua.h tries to resolve
-          - "$(SRCROOT)/nethack/submodules/lua/src/**"
