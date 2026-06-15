@@ -1,4 +1,4 @@
-name: iNethack
+name: iNethack2
 targets:
   iNethack:
     type: application
