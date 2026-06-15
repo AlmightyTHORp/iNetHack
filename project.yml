@@ -43,7 +43,8 @@ targets:
           - "**/win/proxy/**"       
           - "**/win/tty/**"         
           - "**/win/chain/**"       
-          - "**/win/share/tileset.c" # <-- Excludes the conflicting desktop tile parsing code completely
+          - "**/win/win32/**"       # <-- Fixes the 'windows.h' missing file error completely!
+          - "**/win/share/tileset.c" 
 
           # --- AUDIO BACKEND ENGINE FILTERS ---
           - "**/sound/**"           
