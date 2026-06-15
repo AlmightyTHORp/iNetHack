@@ -188,7 +188,6 @@
 		FBAC4424298C379500CCFA26 /* Priest.des in Resources */ = {isa = PBXBuildFile; fileRef = FBAC4398298C378D00CCFA26 /* Priest.des */; };
 		FBAC4425298C379500CCFA26 /* symbols in Resources */ = {isa = PBXBuildFile; fileRef = FBAC4399298C378D00CCFA26 /* symbols */; };
 		FBAC4426298C379500CCFA26 /* Healer.des in Resources */ = {isa = PBXBuildFile; fileRef = FBAC439E298C378D00CCFA26 /* Healer.des */; };
-		FBAC4427298C379500CCFA26 /* yendor.des in Resources */ = {isa = PBXBuildFile; fileRef = FBAC43A4298C378E00CCFA26 /* yendor.des */; };
 		FBAC4428298C379500CCFA26 /* bigrm-9.lev in Resources */ = {isa = PBXBuildFile; fileRef = FBAC43B1298C378E00CCFA26 /* bigrm-9.lev */; };
 		FBAC4429298C379500CCFA26 /* Monk.des in Resources */ = {isa = PBXBuildFile; fileRef = FBAC43B3298C378E00CCFA26 /* Monk.des */; };
 		FBAC442A298C379500CCFA26 /* sokoban.des in Resources */ = {isa = PBXBuildFile; fileRef = FBAC43B4298C378F00CCFA26 /* sokoban.des */; };
@@ -720,7 +719,6 @@
 		FBAC43A1298C378D00CCFA26 /* fire.lev */ = {isa = PBXFileReference; lastKnownFileType = file; name = fire.lev; path = nethack/dat/fire.lev; sourceTree = "<group>"; };
 		FBAC43A2298C378D00CCFA26 /* Pri-strt.lev */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pri-strt.lev"; path = "nethack/dat/Pri-strt.lev"; sourceTree = "<group>"; };
 		FBAC43A3298C378D00CCFA26 /* quest.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = quest.txt; path = nethack/dat/quest.txt; sourceTree = "<group>"; };
-		FBAC43A4298C378E00CCFA26 /* yendor.des */ = {isa = PBXFileReference; lastKnownFileType = text; name = yendor.des; path = nethack/dat/yendor.des; sourceTree = "<group>"; };
 		FBAC43A5298C378E00CCFA26 /* history */ = {isa = PBXFileReference; lastKnownFileType = text; name = history; path = nethack/dat/history; sourceTree = "<group>"; };
 		FBAC43A6298C378E00CCFA26 /* Pri-fila.lev */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pri-fila.lev"; path = "nethack/dat/Pri-fila.lev"; sourceTree = "<group>"; };
 		FBAC43A7298C378E00CCFA26 /* quest.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = quest.dat; path = nethack/dat/quest.dat; sourceTree = "<group>"; };
@@ -1440,7 +1438,6 @@
 				FBAC4391298C378C00CCFA26 /* wizard2.lev */,
 				FBAC43D4298C379100CCFA26 /* wizard3.lev */,
 				FBAC441A298C379500CCFA26 /* wizhelp */,
-				FBAC43A4298C378E00CCFA26 /* yendor.des */,
 			);
 			name = dat;
 			sourceTree = "<group>";
@@ -1655,7 +1652,6 @@
 				FBAC4424298C379500CCFA26 /* Priest.des in Resources */,
 				FBAC4425298C379500CCFA26 /* symbols in Resources */,
 				FBAC4426298C379500CCFA26 /* Healer.des in Resources */,
-				FBAC4427298C379500CCFA26 /* yendor.des in Resources */,
 				FBAC4428298C379500CCFA26 /* bigrm-9.lev in Resources */,
 				FBAC4429298C379500CCFA26 /* Monk.des in Resources */,
 				FBAC442A298C379500CCFA26 /* sokoban.des in Resources */,
