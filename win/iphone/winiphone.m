@@ -47,6 +47,7 @@
 
 #ifdef __APPLE__
 #include "TargetConditionals.h"
+#endif
 
 // Keep your existing lock and recovery variables:
 #define lock "nethack.lock"
