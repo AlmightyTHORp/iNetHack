@@ -49,20 +49,20 @@
 #include "TargetConditionals.h"
 #endif
 
-// Keep your existing lock and recovery variables:
+// Keep your existing working patch structures:
 #define lock "nethack.lock"
 static inline int recover_savefile(void) { return 0; }
 
-// --- NEW REPAIR BLOCK FOR ENCAPSULATED UPSTREAM VARIABLES ---
-// 1. Declare local variables to handle your legacy coordinate boundary assignments
 static int x_maze_max = 0;
 static int y_maze_max = 0;
-
-// 2. Declare a local variable to handle your process tracking assignment safely
 static int hackpid = 0;
 
-// 3. Declare an empty inline mock helper for the legacy setup window layouts function
-static inline void display_gamewindows(void) { /* Handled natively by modern engine launch workflows */ }
+static inline void display_gamewindows(void) { }
+
+// --- NEW FIX: PROVIDE EXPLICIT PROTOTYPE FOR NAME SWITCHER ---
+// This informs the compiler frontend exactly what layout arguments switch_plname takes
+extern void switch_plname(const char *name);
+
 
 #define kOptionUsername (@"username")
 #define kOptionAutopickup (@"autopickup")
