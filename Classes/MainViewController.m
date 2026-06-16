@@ -41,6 +41,14 @@
 #import "NSString+Regexp.h"
 #import "RoleSelectionController.h"
 
+// --- MODERN NETHACK INVENTORY MACRO BINDING ---
+// Maps legacy inventory list pointers to the modern state container
+#define invent (g.invent)
+
+// Declare the external core global container structure to satisfy Clang
+extern struct instance_g g;
+
+
 #define kOptionDoubleTapSensitivity (@"doubleTapSensitivity")
 #define kConstThingsThatAreHereTitle (@"Things that are here:")
 #define kConstThingsThatYouFeelHereTitle (@"Things that you feel here:")
