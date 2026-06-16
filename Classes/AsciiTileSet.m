@@ -27,7 +27,7 @@
 
 // --- MODERN NETHACK MAP GLYPH BINDING ---
 // Redirects the legacy mapglyph function call to NetHack's modern name layout
-#define mapglyph map_glyph
+#define mapglyph map_glyph_base
 
 /*
 static float _colorTable[][4] = {
