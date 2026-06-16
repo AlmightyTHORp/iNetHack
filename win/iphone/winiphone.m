@@ -72,9 +72,9 @@ static nhsym ov_rogue_syms[500];
 
 static inline void minit(void) { }
 
-// --- NEW FIX: OVERRIDE SYSTEM MATH.H LINKAGE FOR THE PROMPT FUNCTION ---
-// This forces Clang to treat 'yn' as NetHack's character prompt selector rather than a Bessel function math operation
-extern char yn(const char *query);
+// --- NEW FIX: REDIRECT THE UNPROTECTED YN METHOD HOOK ---
+// This tells the preprocessor to replace the token 'yn' safely before math.h conflicts register
+#define yn(query) iphone_yn_function(query, NULL, 'n')
 
 #define kOptionUsername (@"username")
 #define kOptionAutopickup (@"autopickup")
