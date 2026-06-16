@@ -140,7 +140,7 @@ struct window_procs tty_procs = { "tty" };
 #define DEFAULT_WINDOW_SYS "iphone"
 
 static CHHapticEngine *hapticEngine = nil;
-boolean dohaptics = TRUE;
+boolean dohaptics = 1;
 
 boolean winiphone_autokick = TRUE;
 boolean winiphone_clickable_tiles = FALSE;
