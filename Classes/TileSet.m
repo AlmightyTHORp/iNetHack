@@ -22,8 +22,12 @@
 
 #import "TileSet.h"
 
-#define glyph2tile (g.glyph2tile)
-extern struct instance_g g;
+// --- MODERN NETHACK GLYPH TO TILE MAPPING FIXED ---
+// Map the legacy glyph translation array safely without colliding with localized variables named 'g'
+#define glyph2tile_array (g_core.glyph2tile)
+
+// Declare the explicit external structure variable to point to NetHack's active memory map
+extern struct instance_g g_core __asm__("_g"); 
 
 static TileSet *instance = nil;
 
@@ -33,8 +37,9 @@ static TileSet *instance = nil;
 	return instance;
 }
 
+// Change your lookup method block to read from the unique token name:
 + (int) glyphToTileIndex:(int)g {
-	return glyph2tile[g];
+	return glyph2tile_array[g]; // Fixed: no longer collides with the input variable parameter 'g'
 }
 
 - (id) initWithImage:(UIImage *)image tileSize:(CGSize)ts {
