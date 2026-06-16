@@ -29,6 +29,13 @@
 #import "NSString+NetHack.h"
 #import "ItemAmountViewController.h"
 
+// --- MODERN NETHACK INVENTORY MACRO BINDING ---
+// Maps legacy inventory list pointers to the modern state container
+#define invent (g.invent)
+
+// Declare the external core global container structure to satisfy Clang
+extern struct instance_g g;
+
 extern short glyph2tile[];
 
 @implementation NethackMenuViewController
