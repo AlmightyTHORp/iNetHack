@@ -57,13 +57,16 @@ targets:
           - "**/util/**"            
           - "**/sys/libnh/**"       
 
-                    # --- COMPLETE CURSES & TERMINAL STRIPPER ---
+          # --- COMPLETE CURSES & TERMINAL STRIPPER ---
           # We block ALL curses submodules and core curses window code files entirely!
           - "**/submodules/pdcurses/**"       
           - "**/submodules/pdcursesmod/**"    
           - "**/win/curses/**"        # <-- Completely prevents NetHack from trying to use a text terminal backend
 
+          # --- LUA SOURCE PATCHES ---
           - "**/submodules/lua/testes/**"             
+          - "**/submodules/lua/src/onelua.c" # <-- ADD THIS LINE HERE TO RESOLVE DUPLICATE SYMBOLS
+          
           - "**/*.xpm"                             
           - "**/*.mif"                             
           - "**/*.md"                              
