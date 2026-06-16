@@ -25,11 +25,7 @@
 #include "hack.h"
 #include "display.h"
 
-// --- REMOVE THE COLLIDING MACRO DEFINITIONS COMPLETELY ---
-// Simply provide an explicit forward C declaration layout.
-// This forces Clang to accept the function format on line 141 and defers matching to the Linker phase!
-extern void mapglyph(int glyph, int *ochar, int *ocolor, unsigned *special, int mg_x, int mg_y, int cell_idx);
-
+#define mapglyph map_glyph
 
 /*
 static float _colorTable[][4] = {
