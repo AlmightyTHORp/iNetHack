@@ -25,9 +25,11 @@
 #include "hack.h"
 #include "display.h"
 
-// --- MODERN NETHACK MAP GLYPH BINDING ---
-// Redirects the legacy mapglyph function call to NetHack's modern name layout
-#define mapglyph map_glyph_base
+// --- REMOVE THE COLLIDING MACRO DEFINITIONS COMPLETELY ---
+// Simply provide an explicit forward C declaration layout.
+// This forces Clang to accept the function format on line 141 and defers matching to the Linker phase!
+extern void mapglyph(int glyph, int *ochar, int *ocolor, unsigned *special, int mg_x, int mg_y, int cell_idx);
+
 
 /*
 static float _colorTable[][4] = {
