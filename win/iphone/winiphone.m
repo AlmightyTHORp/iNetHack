@@ -120,9 +120,6 @@ int regex_id(void) { return 0; }
 void win_tty_init(void) { }
 struct window_procs tty_procs = { "tty" };
 
-
-static inline void minit(void) { }
-
 // --- NEW FIX: REDIRECT THE UNPROTECTED YN METHOD HOOK ---
 // This tells the preprocessor to replace the token 'yn' safely before math.h conflicts register
 #define yn(query) iphone_yn_function(query, NULL, 'n')
