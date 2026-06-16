@@ -65,7 +65,7 @@ targets:
 
           # --- LUA SOURCE PATCHES ---
           - "**/submodules/lua/testes/**"             
-          - "**/submodules/lua/src/onelua.c" # <-- ADD THIS LINE HERE TO RESOLVE DUPLICATE SYMBOLS
+          - "**/onelua.c" # <-- SIMPLIFIED BROAD WILDCARD
           
           - "**/*.xpm"                             
           - "**/*.mif"                             
