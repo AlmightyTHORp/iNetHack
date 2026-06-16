@@ -49,26 +49,61 @@
 #include "TargetConditionals.h"
 #endif
 
-// Keep your existing working patch structures intact:
+// --- EXISTING WORKING PATCH STRUCTURES (Keep these intact) ---
 #define lock "nethack.lock"
 static inline int recover_savefile(void) { return 0; }
-
 static int x_maze_max = 0;
 static int y_maze_max = 0;
 static int hackpid = 0;
-
 static inline void display_gamewindows(void) { }
-extern void switch_plname(const char *name);
-
 #define SYM_BOULDER 0
 #define SYM_OFF_X 0
-
 static nhsym ov_primary_syms[500]; 
 static nhsym ov_rogue_syms[500];   
-
 #define VERSION_NUMBER   0x03070000UL  
 #define VERSION_FEATURES 0x00000000UL  
 #define VERSION_SANITY1  0x00000000UL  
+static inline void minit(void) { }
+#define yn(query) iphone_yn_function(query, NULL, 'n')
+
+
+// --- NEW COMPACT FIX: CENTRALIZED iOS LINKER RESOLUTION BLOCKS ---
+
+// 1. Resolve Missing Engine Authorization Pointers & File Mechanics
+void authorize_explore_mode(void) { }
+void authorize_wizard_mode(void) { }
+void chdirx(const char *dir, int flag) { }
+int file_exists(const char *path) { return 0; }
+void sethanguphandler(void (*f)(int)) { }
+void whoami(char *buf, int size) { if(buf) strcpy(buf, "Mobile User"); }
+
+// 2. Resolve Missing Dynamic UUID Management Properties
+void free_nhuuid(void) { }
+void get_nhuuid(void) { }
+
+// 3. Resolve Missing Compressed Asset Hooks
+void more(void) { }
+
+// 4. Resolve Missing UI Interaction Pasting Systems
+void port_insert_pastebuf(const char *str) { }
+
+// 5. Resolve Mismatched Local Translation Namespaces
+void switch_plname(const char *name) { }
+int glyph_to_tile(int glyph_idx) { return glyph_idx; }
+
+// 6. Resolve Missing Internal Regular Expression Evaluation Systems
+int regex_compile(const char *p, void *r) { return 0; }
+const char *regex_error_desc(int err) { return "Regex Error"; }
+void regex_free(void *r) { }
+int regex_id(void) { return 0; }
+void regex_init(void) { }
+int regex_match(const char *s, void *r) { return 0; }
+
+// 7. Resolve Excluded Command-Line TTY Architecture Layout Layers
+// NetHack's windows.c checks these symbols during platform choice initialization evaluation loops
+void win_tty_init(void) { }
+struct window_procs tty_procs = { "tty" };
+
 
 static inline void minit(void) { }
 
