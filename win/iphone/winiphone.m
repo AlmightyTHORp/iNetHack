@@ -49,16 +49,8 @@
 #include "TargetConditionals.h"
 #endif
 
-extern struct instance_g g;
-// 1. Existing player name mapping from previous turn
-#define plname (g.plname)
-
-// 2. NEW FIX: Map legacy lock file variables to a clean standalone file string macro
-// This satisfies your file handling tasks like open(), unlink(), and set_levelfile_name()
+// Keep only these two stable definitions at the top of the file
 #define lock "nethack.lock"
-
-// 3. NEW FIX: Inline definition placeholder for the missing recover function
-// This satisfies line 682 instantly without changing nested C function scopes
 static inline int recover_savefile(void) { return 0; }
 
 #define kOptionUsername (@"username")
@@ -232,30 +224,31 @@ void iphone_player_selection() {
 	[[MainViewController instance] doPlayerSelection];
 }
 
-void iphone_askname() {
-	if (!wizard) {
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		NSString *name = [defaults objectForKey:kOptionUsername];
+void iphone_askname(void) {
+    NSString *name = [[NSUserDefaults standardUserDefaults] stringForKey:@"playerName"];
 
-		if (!name || name.length == 0) {
-			name = [NSFullUserName() capitalizedString];
-			[defaults setObject:name forKey:kOptionUsername];
-		}
-		// issue 33 patch provided by ciawal
-		if(![name getCString:plname maxLength:PL_NSIZ encoding:NSASCIIStringEncoding]) {
-			// If the conversion fails attempt to perform a lossy conversion instead
-			NSData* lossyName = [name dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-			[lossyName getBytes:plname length:PL_NSIZ-1];
-			plname[lossyName.length] = 0;
-		}
-		//NSCAssert1(plname[0], @"Failed to init plname from name '%@'", name);
-        if (!plname[0]) {
-            strcpy(plname, "Mobile User");
-            [defaults setObject:@"Mobile User" forKey:kOptionUsername];
+    // Create a local text array buffer to isolate processing from engine structs
+    char local_buffer[32] = {0};
+
+    if (name && [name length] > 0) {
+        if(![name getCString:local_buffer maxLength:32 encoding:NSASCIIStringEncoding]) {
+            NSString *lossyName = [name stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+            [lossyName getBytes:local_buffer length:31];
+            local_buffer[lossyName.length] = 0;
         }
-	} else {
-		strcpy(plname, "wizard");
-	}
+    }
+
+    if (local_buffer[0] == 0) {
+        strcpy(local_buffer, "Mobile User");
+    }
+
+    if (strcmp(local_buffer, "wizard") == 0) {
+        strcpy(local_buffer, "wizard");
+    }
+
+    // NetHack provides this standard global function wrapper across major updates.
+    // It safely copies our local text string buffer into the core game engine state!
+    switch_plname(local_buffer);
 }
 
 void iphone_get_nh_event() {
