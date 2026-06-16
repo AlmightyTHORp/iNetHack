@@ -63,8 +63,6 @@ extern void switch_plname(const char *name);
 #define SYM_BOULDER 0
 #define SYM_OFF_X 0
 
-// --- FIXED: ADD ARRAY BRACKETS ---
-// Giving them a size (e.g., 500) transforms them into valid arrays for the compiler
 static nhsym ov_primary_syms[500]; 
 static nhsym ov_rogue_syms[500];   
 
@@ -73,6 +71,10 @@ static nhsym ov_rogue_syms[500];
 #define VERSION_SANITY1  0x00000000UL  
 
 static inline void minit(void) { }
+
+// --- NEW FIX: OVERRIDE SYSTEM MATH.H LINKAGE FOR THE PROMPT FUNCTION ---
+// This forces Clang to treat 'yn' as NetHack's character prompt selector rather than a Bessel function math operation
+extern char yn(const char *query);
 
 #define kOptionUsername (@"username")
 #define kOptionAutopickup (@"autopickup")
