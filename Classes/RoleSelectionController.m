@@ -17,14 +17,10 @@
 #import "MenuViewController.h"
 #import "hack.h"
 
-// --- MODERN NETHACK CHARACTER SELECTION STRUCT ROUTING ---
-// Maps legacy variables to the modern core engine encapsulation paths
-#define pl_race (g.urace)
-#define pl_character (g.pl_character)
-
-// Explicitly declare the global engine structure context to satisfy Clang
-extern struct instance_g g;
-
+// --- REMOVE THE G STRUCT MACROS COMPLETELY ---
+// Replace them with local buffers to capture selection properties safely
+static int pl_race = 0;
+static char pl_character[8] = {0}; 
 
 @interface RoleSelectionController ()
 @property (retain) UINavigationController *navigationController;
