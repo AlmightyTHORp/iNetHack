@@ -28,13 +28,15 @@ jobs:
           echo "mock data" > nethack/dat/nhdat
           echo "mock library" > nethack/lib/placeholder.txt
 
-          # Rescue the header file 
+          # Copy the core required system header
           cp nethack/sys/msdos/nhlua.h nethack/include/
 
-          # Copy loose Lua headers to satisfy the relative lookup path
+          # Copy standard Lua headers to satisfy the relative lookup path layout
           mkdir -p nethack/lib/lua544/src
           cp nethack/submodules/lua/*.h nethack/lib/lua544/src/ || true
           cp nethack/submodules/lua/src/*.h nethack/lib/lua544/src/ || true
+
+          # Generate the missing timing engine header definitions
           echo '#define AM_PM' > nethack/include/date.h
           echo '#define TIMED_DELAY' >> nethack/include/date.h
 
