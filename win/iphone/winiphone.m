@@ -70,8 +70,14 @@ static inline void minit(void) { }
 // --- NEW COMPACT FIX: CENTRALIZED iOS LINKER RESOLUTION BLOCKS ---
 
 // 1. Resolve Missing Engine Authorization Pointers & File Mechanics
-void authorize_explore_mode(void) { }
-void authorize_wizard_mode(void) { }
+boolean authorize_explore_mode(void) { 
+    return TRUE; 
+}
+
+boolean authorize_wizard_mode(void) { 
+    return TRUE; 
+}
+
 void chdirx(const char *dir, int flag) { }
 int file_exists(const char *path) { return 0; }
 void sethanguphandler(void (*f)(int)) { }
