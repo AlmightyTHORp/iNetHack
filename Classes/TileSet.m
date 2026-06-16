@@ -22,7 +22,8 @@
 
 #import "TileSet.h"
 
-extern short glyph2tile[];
+#define glyph2tile (g.glyph2tile)
+extern struct instance_g g;
 
 static TileSet *instance = nil;
 
