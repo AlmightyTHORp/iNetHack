@@ -63,18 +63,16 @@ extern void switch_plname(const char *name);
 #define SYM_BOULDER 0
 #define SYM_OFF_X 0
 
-static nhsym ov_primary_syms; 
-static nhsym ov_rogue_syms;
+// --- FIXED: ADD ARRAY BRACKETS ---
+// Giving them a size (e.g., 500) transforms them into valid arrays for the compiler
+static nhsym ov_primary_syms[500]; 
+static nhsym ov_rogue_syms[500];   
 
 #define VERSION_NUMBER   0x03070000UL  
 #define VERSION_FEATURES 0x00000000UL  
 #define VERSION_SANITY1  0x00000000UL  
 
-// --- NEW FIX: MOCK PRE-COMPRESSION INITIALIZER ---
-// This satisfies line 902 by giving the engine an empty block to execute safely
-static inline void minit(void) { /* Handled natively by modern save architectures */ }
-
-
+static inline void minit(void) { }
 
 #define kOptionUsername (@"username")
 #define kOptionAutopickup (@"autopickup")
