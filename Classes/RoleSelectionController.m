@@ -22,6 +22,14 @@
 static int pl_race = 0;
 static char pl_character[8] = {0}; 
 
+// --- MODERN NETHACK INVENTORY MACRO BINDING ---
+// Maps legacy inventory list pointers to the modern state container
+#define invent (g.invent)
+
+// Declare the external core global container structure to satisfy Clang
+extern struct instance_g g;
+
+
 @interface RoleSelectionController ()
 @property (retain) UINavigationController *navigationController;
 - (instancetype)initWithNavigationController:(UINavigationController *)navController;
