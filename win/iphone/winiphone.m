@@ -78,8 +78,8 @@ boolean authorize_wizard_mode(void) {
     return TRUE; 
 }
 
-void chdirx(const char *dir, int flag) { }
-int file_exists(const char *path) { return 0; }
+void chdirx(const char *dir, boolean flag) { }
+boolean file_exists(const char *path) { return FALSE; }
 void sethanguphandler(void (*f)(int)) { }
 void whoami(char *buf, int size) { if(buf) strcpy(buf, "Mobile User"); }
 
@@ -91,19 +91,29 @@ void get_nhuuid(void) { }
 void more(void) { }
 
 // 4. Resolve Missing UI Interaction Pasting Systems
-void port_insert_pastebuf(const char *str) { }
+void port_insert_pastebuf(char *str) { }
 
 // 5. Resolve Mismatched Local Translation Namespaces
 void switch_plname(const char *name) { }
 int glyph_to_tile(int glyph_idx) { return glyph_idx; }
 
 // 6. Resolve Missing Internal Regular Expression Evaluation Systems
-int regex_compile(const char *p, void *r) { return 0; }
-const char *regex_error_desc(int err) { return "Regex Error"; }
-void regex_free(void *r) { }
+struct nhregex *regex_init(void) { 
+    return (struct nhregex *)0; 
+}
+boolean regex_compile(const char *p, struct nhregex *r) { 
+    return FALSE; 
+}
+boolean regex_match(const char *s, struct nhregex *r) { 
+    return FALSE; 
+}
+char *regex_error_desc(struct nhregex *r, char *errbuf) { 
+    if (errbuf) errbuf[0] = '\0';
+    return errbuf; 
+}
+void regex_free(struct nhregex *r) { }
 int regex_id(void) { return 0; }
-void regex_init(void) { }
-int regex_match(const char *s, void *r) { return 0; }
+
 
 // 7. Resolve Excluded Command-Line TTY Architecture Layout Layers
 // NetHack's windows.c checks these symbols during platform choice initialization evaluation loops
