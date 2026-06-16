@@ -59,7 +59,21 @@ targets:
 
           # --- PDCURSES ALL SUBMODULE EXCLUSIONS ---
           - "**/submodules/pdcurses/**"       
-          - "**/submodules/pdcursesmod/**"    
+          # --- RE-ALIGNED PDCURSES SUBMODULE EXCLUSIONS ---
+          # We remove the blanket filter so Xcode Gen can compile the abstract core window buffers!
+          - "**/submodules/pdcursesmod/cmake/**"      
+          - "**/submodules/pdcursesmod/dos*/**"       
+          - "**/submodules/pdcursesmod/gl/**"         
+          - "**/submodules/pdcursesmod/ncurses/**"    
+          - "**/submodules/pdcursesmod/os2*/**"       
+          - "**/submodules/pdcursesmod/sdl*/**"       
+          - "**/submodules/pdcursesmod/vt/**"          
+          - "**/submodules/pdcursesmod/win*/**"       
+          - "**/submodules/pdcursesmod/x11/**"        
+          - "**/submodules/pdcursesmod/docs/**"       
+          - "**/submodules/pdcursesmod/demos/**"      
+          - "**/submodules/pdcursesmod/common/**"     
+          # Note: We do NOT block 'submodules/pdcursesmod/pdcurses/**' anymore!    
           - "**/submodules/lua/testes/**"             
           - "**/*.xpm"                             
           - "**/*.mif"                             
