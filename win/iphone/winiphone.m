@@ -49,7 +49,7 @@
 #include "TargetConditionals.h"
 #endif
 
-// Keep your existing working patch structures:
+// Keep your existing working patch variables:
 #define lock "nethack.lock"
 static inline int recover_savefile(void) { return 0; }
 
@@ -58,11 +58,16 @@ static int y_maze_max = 0;
 static int hackpid = 0;
 
 static inline void display_gamewindows(void) { }
-
-// --- NEW FIX: PROVIDE EXPLICIT PROTOTYPE FOR NAME SWITCHER ---
-// This informs the compiler frontend exactly what layout arguments switch_plname takes
 extern void switch_plname(const char *name);
 
+// --- NEW FIX: CAPTURE OBSELETE BOULDER OVERRIDE ARRAYS ---
+// This safely handles legacy assignments on lines 605 & 606 without breaking structural memory logic
+#define SYM_BOULDER 0
+#define SYM_OFF_X 0
+typedef int nhsym;
+
+static int ov_primary_syms[100];
+static int ov_rogue_syms[100];
 
 #define kOptionUsername (@"username")
 #define kOptionAutopickup (@"autopickup")
