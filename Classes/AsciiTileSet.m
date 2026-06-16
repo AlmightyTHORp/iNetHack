@@ -25,6 +25,10 @@
 #include "hack.h"
 #include "display.h"
 
+// --- MODERN NETHACK MAP GLYPH BINDING ---
+// Redirects the legacy mapglyph function call to NetHack's modern name layout
+#define mapglyph map_glyph
+
 /*
 static float _colorTable[][4] = {
 {0,0,0,1}, // CLR_BLACK
