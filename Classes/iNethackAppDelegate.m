@@ -46,41 +46,41 @@
 	NSString *dogName = [defaults stringForKey:@"dogname"];
 	NSString *catName = [defaults stringForKey:@"catname"];
 	NSString *horseName = [defaults stringForKey:@"horsename"];
-	NSMutableArray *optionLines = [NSMutableArray array];
+	NSMutableArray *activeOptions = [NSMutableArray array];
 	
 	if (startAsBlind) {
-		[optionLines addObject:@"blind"];
+		[activeOptions addObject:@"blind"];
 	}
 	if (startAsNudist) {
-		[optionLines addObject:@"nudist"];
+		[activeOptions addObject:@"nudist"];
 	}
 	if (startAsDeaf) {
-		[optionLines addObject:@"deaf"];
+		[activeOptions addObject:@"deaf"];
 	}
 	if (startAsPauper) {
-		[optionLines addObject:@"pauper"];
+		[activeOptions addObject:@"pauper"];
 	}
 	if (petType && [petType length] > 0 && ![petType isEqualToString:@"random"]) {
         NSString *petOption = [NSString stringWithFormat:@"pettype:%@", petType];
-        [optionLines addObject:petOption];
+        [activeOptions addObject:petOption];
     }
 	if (dogName && [dogName length] > 0) {
         NSString *dogOption = [NSString stringWithFormat:@"dogname:%@", dogName];
-        [optionLines addObject:dogOption];
+        [activeOptions addObject:dogOption];
     }
 	if (catName && [catName length] > 0) {
         NSString *catOption = [NSString stringWithFormat:@"catname:%@", catName];
-        [optionLines addObject:catOption];
+        [activeOptions addObject:catOption];
     }
 	if (horseName && [horseName length] > 0) {
         NSString *horseOption = [NSString stringWithFormat:@"horsename:%@", horseName];
-        [optionLines addObject:horseOption];
+        [activeOptions addObject:horseOption];
     }
 
-    [optionLines addObject:[NSString stringWithFormat:@"SEDUCE=%d", allowSeduction ? 1 : 0]];
+    [activeOptions addObject:[NSString stringWithFormat:@"SEDUCE=%d", allowSeduction ? 1 : 0]];
 
     NSString *optionFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"iNethack-options.conf"];
-    NSString *optionContents = [optionLines componentsJoinedByString:@"\n"];
+    NSString *optionContents = [activeOptions componentsJoinedByString:@"\n"];
     NSError *writeError = nil;
     [optionContents writeToFile:optionFilePath atomically:YES encoding:NSUTF8StringEncoding error:&writeError];
     if (writeError) {
