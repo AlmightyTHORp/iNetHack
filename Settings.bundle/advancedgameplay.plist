@@ -49,6 +49,16 @@
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
+        <dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Seduction</string>
+			<key>Key</key>
+			<string>seduce</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
 	</array>
     </dict>
 </plist>

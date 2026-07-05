@@ -39,40 +39,49 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	BOOL startAsBlind = [defaults boolForKey:@"blind"];
 	BOOL startAsNudist = [defaults boolForKey:@"nudist"];
+	BOOL allowSeduction = [defaults boolForKey:@"seduce"];
 	NSString *petType = [defaults stringForKey:@"pettype"];
 	NSString *dogName = [defaults stringForKey:@"dogname"];
 	NSString *catName = [defaults stringForKey:@"catname"];
 	NSString *horseName = [defaults stringForKey:@"horsename"];
-	NSMutableArray *activeOptions = [NSMutableArray array];
+	NSMutableArray *optionLines = [NSMutableArray array];
 	
 	if (startAsBlind) {
-		[activeOptions addObject:@"blind"];
+		[optionLines addObject:@"blind"];
 	}
 	if (startAsNudist) {
-		[activeOptions addObject:@"nudist"];
+		[optionLines addObject:@"nudist"];
 	}
 	if (petType && [petType length] > 0 && ![petType isEqualToString:@"random"]) {
         NSString *petOption = [NSString stringWithFormat:@"pettype:%@", petType];
-        [activeOptions addObject:petOption];
+        [optionLines addObject:petOption];
     }
 	if (dogName && [dogName length] > 0) {
         NSString *dogOption = [NSString stringWithFormat:@"dogname:%@", dogName];
-        [activeOptions addObject:dogOption];
+        [optionLines addObject:dogOption];
     }
 	if (catName && [catName length] > 0) {
         NSString *catOption = [NSString stringWithFormat:@"catname:%@", catName];
-        [activeOptions addObject:catOption];
+        [optionLines addObject:catOption];
     }
 	if (horseName && [horseName length] > 0) {
         NSString *horseOption = [NSString stringWithFormat:@"horsename:%@", horseName];
-        [activeOptions addObject:horseOption];
+        [optionLines addObject:horseOption];
     }
-	if ([activeOptions count] > 0) {
-	    NSString *optionsString = [activeOptions componentsJoinedByString:@","];
-		setenv("NETHACKOPTIONS", [optionsString UTF8String], 1);
-	} else {
-	    unsetenv("NETHACKOPTIONS");
-	}
+
+    [optionLines addObject:[NSString stringWithFormat:@"SEDUCE=%d", allowSeduction ? 1 : 0]];
+
+    NSString *optionFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"iNethack-options.conf"];
+    NSString *optionContents = [optionLines componentsJoinedByString:@"\n"];
+    NSError *writeError = nil;
+    [optionContents writeToFile:optionFilePath atomically:YES encoding:NSUTF8StringEncoding error:&writeError];
+    if (writeError) {
+        NSLog(@"Failed to write NetHack options file: %@", writeError);
+        unsetenv("NETHACKOPTIONS");
+    } else {
+        NSString *optionsValue = [NSString stringWithFormat:@"@%@", optionFilePath];
+        setenv("NETHACKOPTIONS", [optionsValue UTF8String], 1);
+    }
 	BOOL badBonesSeen = [self checkNetHackDirectories];
     [application setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 

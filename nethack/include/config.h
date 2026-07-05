@@ -211,6 +211,10 @@
 #define GREPPATH "/bin/grep"
 #endif
 
+#ifndef SEDUCE
+#define SEDUCE 1 /* allow incubi/succubi to seduce */
+#endif
+
 /* note: "larger" is in comparison with 'record', the high-scores file
    (whose name can be overridden via #define in global.h if desired) */
 #define LOGFILE  "logfile"  /* larger file for debugging purposes */
