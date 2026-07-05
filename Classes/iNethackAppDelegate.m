@@ -40,6 +40,7 @@
 	BOOL startAsBlind = [defaults boolForKey:@"blind"];
 	BOOL startAsNudist = [defaults boolForKey:@"nudist"];
 	BOOL startAsDeaf = [defaults boolForKey:@"deaf"];
+	BOOL startAsPauper = [defaults boolForKey:@"pauper"];
 	BOOL allowSeduction = [defaults boolForKey:@"seduce"];
 	NSString *petType = [defaults stringForKey:@"pettype"];
 	NSString *dogName = [defaults stringForKey:@"dogname"];
@@ -55,6 +56,9 @@
 	}
 	if (startAsDeaf) {
 		[optionLines addObject:@"deaf"];
+	}
+	if (startAsPauper) {
+		[optionLines addObject:@"pauper"];
 	}
 	if (petType && [petType length] > 0 && ![petType isEqualToString:@"random"]) {
         NSString *petOption = [NSString stringWithFormat:@"pettype:%@", petType];
