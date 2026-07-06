@@ -76,8 +76,10 @@
         NSString *horseOption = [NSString stringWithFormat:@"horsename:%@", horseName];
         [activeOptions addObject:horseOption];
     }
-
-    [activeOptions addObject:[NSString stringWithFormat:@"SEDUCE=%d", allowSeduction ? 1 : 0]];
+	if (!allowSeduction) {
+		// Seduction is on by default, but it can be turned off with SEDUCE=0
+        [activeOptions addObject:@"SEDUCE=0"];
+	}
 
     if ([activeOptions count] > 0) {
 	    NSString *optionsString = [activeOptions componentsJoinedByString:@","];
