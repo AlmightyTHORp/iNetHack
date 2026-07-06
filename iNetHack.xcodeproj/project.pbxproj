@@ -1911,6 +1911,10 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iNetHack_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"SEDUCE=1",
+					"$(inherited)",
+				);
 				"HEADER_SEARCH_PATHS[arch=*]" = "lib/**";
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
