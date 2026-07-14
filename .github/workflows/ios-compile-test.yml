@@ -16,6 +16,13 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Initialize submodules and generated headers
+        run: |
+          git submodule sync --recursive
+          git submodule update --init --recursive
+          mkdir -p nethack/include
+          cp nethack/sys/msdos/nhlua.h nethack/include/nhlua.h
+
       - name: Compile and Run Tilemap Generator
         run: |
           # 1. Compile tilemap.c natively on the runner host
