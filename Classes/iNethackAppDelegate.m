@@ -35,34 +35,49 @@
 
 @synthesize window;
 
-- (void) loggingTest {
-	NSString *tmpFile = [FileLogger tmpFileName];
-	NSLog(@"tmpFile %@", tmpFile);
-	for (int i = 0; i < 500; ++i) {
-		FileLogger *logger = [[FileLogger alloc] initWithFile:tmpFile maxSize:250];
-		for (int j = 0; j < 1000; ++j) {
-			[logger logString:[NSString stringWithFormat:@"This is some logged line #%04d", j]];
-		}
-		[logger release];
-	}
-	[[NSFileManager defaultManager] removeItemAtPath:tmpFile error:NULL];
-}
-
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-//	[self loggingTest];
-//	return;
-
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	BOOL startAsBlind = [defaults boolForKey:@"blind"];
+	BOOL startAsNudist = [defaults boolForKey:@"nudist"];
+	NSString *petType = [defaults stringForKey:@"pettype"];
+	NSString *dogName = [defaults stringForKey:@"dogname"];
+	NSString *catName = [defaults stringForKey:@"catname"];
+	NSString *horseName = [defaults stringForKey:@"horsename"];
+	NSMutableArray *activeOptions = [NSMutableArray array];
+	
+	if (startAsBlind) {
+		[activeOptions addObject:@"blind"];
+	}
+	if (startAsNudist) {
+		[activeOptions addObject:@"nudist"];
+	}
+	if (petType && [petType length] > 0 && ![petType isEqualToString:@"random"]) {
+        NSString *petOption = [NSString stringWithFormat:@"pettype:%@", petType];
+        [activeOptions addObject:petOption];
+    }
+	if (dogName && [dogName length] > 0) {
+        NSString *dogOption = [NSString stringWithFormat:@"dogname:%@", dogName];
+        [activeOptions addObject:dogOption];
+    }
+	if (catName && [catName length] > 0) {
+        NSString *catOption = [NSString stringWithFormat:@"catname:%@", catName];
+        [activeOptions addObject:catOption];
+    }
+	if (horseName && [horseName length] > 0) {
+        NSString *horseOption = [NSString stringWithFormat:@"horsename:%@", horseName];
+        [activeOptions addObject:horseOption];
+    }
+	if ([activeOptions count] > 0) {
+	    NSString *optionsString = [activeOptions componentsJoinedByString:@","];
+		setenv("NETHACKOPTIONS", [optionsString UTF8String], 1);
+	} else {
+	    unsetenv("NETHACKOPTIONS");
+	}
 	BOOL badBonesSeen = [self checkNetHackDirectories];
-    //iNethack2: UPDATE: iOS9 the below fix actually causese issues. commenting out.
- //   [application setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO]; // prevent start orientation bug
     [application setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 
     // use mainNavigationController.view to skip main menu
-
-    //iNethack2 commented out below, added line after, to get rid of "Application windows are expected to have a root view controller at the end of application launch" message
-    //	[window addSubview:mainNavigationController.view];
     [self.window setRootViewController:mainNavigationController];
-    //[window addSubview:mainMenuViewController.view];
     [window makeKeyAndVisible];
     self.window.frame = [UIScreen mainScreen].bounds; //iNethack2
     [application setStatusBarHidden:YES];
@@ -74,9 +89,6 @@
 }
 
 - (void) applicationDidEnterBackground:(UIApplication *)application {
-    // 2.0.8 and earlier we used to run the routine when app was about to terminate to do a save.
-    //    return [self applicationWillTerminate:application];
-
     // Save the zoom level
     [[NSUserDefaults standardUserDefaults] setFloat:[(MainView *) [[MainViewController instance] view] tileSize].width
                                              forKey:kKeyTileSize];
@@ -159,9 +171,6 @@
 	for (NSString *filename in filelist) {
 		NSLog(@"file %@", filename);
 	}
-
-	// simple test case for UI interaction with bad bones
-	//[self createTestBadBonesFile];
 	
     filelist= [[NSFileManager defaultManager]  contentsOfDirectoryAtPath:@"." error:nil];
     
