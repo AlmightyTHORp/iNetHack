@@ -2,9 +2,8 @@ name: iOS App Compilation & Packaging
 
 on:
   push:
-    branches: [ main, master, dev ]
+    branches: [ main, dev, master ]
   pull_request:
-    branches: [ main, master, dev ]
 
 jobs:
   build-ipa:
@@ -15,13 +14,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-
-      - name: Initialize submodules and generated headers
-        run: |
-          git submodule sync --recursive
-          git submodule update --init --recursive
-          mkdir -p nethack/include
-          cp nethack/sys/msdos/nhlua.h nethack/include/nhlua.h
 
       - name: Compile and Run Tilemap Generator
         run: |
@@ -40,36 +32,31 @@ jobs:
       - name: Force Xcode Version
         run: sudo xcode-select -s /Applications/Xcode.app
 
-      - name: "Step 1: Initialize Source, Dependencies & Mock Assets"
+      - name: Fix Misplaced Entitlements Warning
         run: |
-          brew install xcodegen
+          sed -i '' '/Entitlements.pbxproj/d' iNetHack.xcodeproj/project.pbxproj || true
+          sed -i '' '/Entitlements.plist/d' iNetHack.xcodeproj/project.pbxproj || true
+
+      - name: "Step 1: Initialize Source and Sandbox Mock Assets"
+        run: |
           mkdir -p dat lib nethack/dat nethack/lib
           echo "mock data" > dat/nhdat
           echo "mock library" > lib/placeholder.txt
           echo "mock data" > nethack/dat/nhdat
           echo "mock library" > nethack/lib/placeholder.txt
 
-          # Copy the core required system header
-          cp nethack/sys/msdos/nhlua.h nethack/include/
+          # Pre-build target structure for the real phone deployment path
+          mkdir -p build_output/Build/Products/Debug-iphoneos/iNetHack2.app/lib
+          echo "mock data" > build_output/Build/Products/Debug-iphoneos/iNetHack2.app/nhdat
+          echo "mock library" > build_output/Build/Products/Debug-iphoneos/iNetHack2.app/lib/placeholder.txt
 
-          # Copy standard Lua headers to satisfy the relative lookup path layout
-          mkdir -p nethack/lib/lua544/src
-          cp nethack/submodules/lua/*.h nethack/lib/lua544/src/ || true
-          cp nethack/submodules/lua/src/*.h nethack/lib/lua544/src/ || true
-
-          # Generate the missing timing engine header definitions
-          echo '#define AM_PM' > nethack/include/date.h
-          echo '#define TIMED_DELAY' >> nethack/include/date.h
-
-      - name: "Step 2: Generate and Compile App for Physical iPhone Hardware"
+      - name: "Step 2: Compile App for Physical iPhone Hardware"
         run: |
-          # Instantly builds a fresh, uncorrupted iNetHack.xcodeproj
-          xcodegen generate
-          
-          # Compile the generated project structure
+          # We change the SDK to 'iphoneos' and target generic iOS devices 
+          # so Xcode generates an arm64 binary for real phone processors.
           xcodebuild build \
             -project "iNetHack.xcodeproj" \
-            -scheme "iNetHack" \
+            -scheme "iNetHack2" \
             -configuration Debug \
             -sdk iphoneos \
             -destination "generic/platform=iOS" \
@@ -84,6 +71,7 @@ jobs:
       - name: "Step 3: Package App Layout into an .ipa Installer"
         run: |
           # iOS requires the .app folder to live inside a folder named 'Payload' 
+          # inside the zip archive to recognized it as an installable app (.ipa)
           mkdir -p Payload
           cp -r build_output/Build/Products/Debug-iphoneos/iNetHack2.app Payload/
           zip -r iNetHack2.ipa Payload
