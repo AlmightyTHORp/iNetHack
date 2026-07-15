@@ -20,7 +20,6 @@ jobs:
           # Copy standard Lua headers to satisfy the relative lookup path layout
           mkdir -p nethack/lib/lua544/src
           cp nethack/submodules/lua/*.h nethack/lib/lua544/src/ || true
-          cp nethack/submodules/lua/src/*.h nethack/lib/lua544/src/ || true
 
           # 1. Compile tilemap.c natively on the runner host
           cd nethack/win
