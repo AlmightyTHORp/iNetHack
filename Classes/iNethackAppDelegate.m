@@ -114,11 +114,11 @@
     if ([[MainViewController instance] gameInProgress]) {
 		dosave();
 	} else {
-		NSString *lockFile = [NSString stringWithCString:lock encoding:NSASCIIStringEncoding];
-		if ([[NSFileManager defaultManager] fileExistsAtPath:lockFile]) {
-			int fail = unlink(lock);
-			NSCAssert1(!fail, @"Failed to unlink lock %s", lock);
-		}
+		NSString *lockFile = @"nethack.lock";
+        if ([[NSFileManager defaultManager] fileExistsAtPath:lockFile]) {
+            int fail = unlink([lockFile UTF8String]);
+            NSCAssert1(!fail, @"Failed to unlink lock %s", [lockFile UTF8String]);
+        }
 	}
 }
 
