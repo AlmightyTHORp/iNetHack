@@ -45,9 +45,6 @@
 #include "hack.h"
 #include "date.h"
 
-// Disambiguate panic() from Darwin's mach/mach.h
-#define panic nethack_panic
-
 #ifdef __APPLE__
 #include "TargetConditionals.h"
 #endif
@@ -752,7 +749,7 @@ getlock(void)
 				fd = open(lock, O_RDWR | O_EXCL | O_CREAT, 0644);
 				delete_savefile();
 			} else {
-				nethack_panic("Failed to unlink %s", lock);
+				// panic("Failed to unlink %s", lock);
 			}
 		} else {
 			// Try to recover
@@ -773,7 +770,7 @@ getlock(void)
 	
 	if (write(fd, (char *)&pid, sizeof (pid)) != sizeof (pid))  {
 		raw_printf("Could not lock the game %s.", lock);
-		nethack_panic("Disk locked?");
+		// panic("Disk locked?");
 	}
 	close (fd);
 }

@@ -24,7 +24,7 @@
 #include "hack.h"
 
 void iphone_init_nhwindows(int* argc, char** argv);
-void iphone_player_selection();
+void iphone_player_selection(void);
 void iphone_askname();
 void iphone_get_nh_event();
 void iphone_exit_nhwindows(const char *str);
